@@ -4,6 +4,7 @@ import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 import kotlin.jvm.JvmField
+import kotlin.jvm.JvmStatic
 
 @Suppress("FunctionName", "MemberVisibilityCanBePrivate")
 abstract class AbstractRedBlackTree<NODE : Any> {
@@ -55,8 +56,8 @@ abstract class AbstractRedBlackTree<NODE : Any> {
 
     private fun __rotateLeft_Switch(top: NODE, parent: NODE?) = when {
         parent == null -> this.__rotateLeft_Root(top.__assertIsRoot())
-        top === this._getLeftChild(parent) -> this.__rotateLeft_Left(top, parent)
-        top === this._getRightChild(parent) -> this.__rotateLeft_Right(top, parent)
+        this._checkSame(top, this._getLeftChild(parent)) -> this.__rotateLeft_Left(top, parent)
+        this._checkSame(top, this._getRightChild(parent)) -> this.__rotateLeft_Right(top, parent)
         else -> this.__throwTreeCorruptedNotChild(top, parent)
     }
 
@@ -96,8 +97,8 @@ abstract class AbstractRedBlackTree<NODE : Any> {
 
     private fun __rotateRight_Switch(top: NODE, parent: NODE?) = when {
         parent == null -> this.__rotateRight_Root(top.__assertIsRoot())
-        top === this._getLeftChild(parent) -> this.__rotateRight_Left(top, parent)
-        top === this._getRightChild(parent) -> this.__rotateRight_Right(top, parent)
+        this._checkSame(top, this._getLeftChild(parent)) -> this.__rotateRight_Left(top, parent)
+        this._checkSame(top, this._getRightChild(parent)) -> this.__rotateRight_Right(top, parent)
         else -> this.__throwTreeCorruptedNotChild(top, parent)
     }
 
@@ -153,10 +154,11 @@ abstract class AbstractRedBlackTree<NODE : Any> {
         throw TreeCorruptedException.TreeCorruptedNotBalancedException(this, node, reason)
 
 
-    private fun NODE.__assertIsRoot(): NODE =
-        if (this@AbstractRedBlackTree.root === this@__assertIsRoot) this@__assertIsRoot
+    private fun NODE.__assertIsRoot(): NODE {
+        val root = this@AbstractRedBlackTree.root
+        if (root != null && this@AbstractRedBlackTree._checkSame(root, this@__assertIsRoot)) return this@__assertIsRoot
         else this@AbstractRedBlackTree.__throwTreeCorruptedNotRoot(this@__assertIsRoot)
-
+    }
 
     fun balanceAfterLinking(node: NODE) {
         this._setColor(node, Color.RED)
@@ -181,7 +183,7 @@ abstract class AbstractRedBlackTree<NODE : Any> {
             }
 
             when {
-                parent === this._getLeftChild(grandParent) -> {
+                this._checkSame(parent,  this._getLeftChild(grandParent)) -> {
                     val uncle = this._getRightChild(grandParent)
                     if (uncle != null && this._getColor(uncle) == Color.RED) {
                         this._setColor(parent, Color.BLACK)
@@ -192,12 +194,12 @@ abstract class AbstractRedBlackTree<NODE : Any> {
                     }
 
                     when {
-                        current === this._getLeftChild(parent) -> {
+                        this._checkSame(current,  this._getLeftChild(parent)) -> {
                             this.__rotateRight_Switch(grandParent)
                             continue
                         }
 
-                        current === this._getRightChild(parent) -> {
+                        this._checkSame(current,  this._getRightChild(parent)) -> {
                             this.__rotateLeft_Left(parent, grandParent)
                             current = parent
                             continue
@@ -207,7 +209,7 @@ abstract class AbstractRedBlackTree<NODE : Any> {
                     }
                 }
 
-                parent === this._getRightChild(grandParent) -> {
+                this._checkSame(parent,  this._getRightChild(grandParent)) -> {
                     val uncle = this._getLeftChild(grandParent)
                     if (uncle != null && this._getColor(uncle) == Color.RED) {
                         this._setColor(parent, Color.BLACK)
@@ -218,12 +220,12 @@ abstract class AbstractRedBlackTree<NODE : Any> {
                     }
 
                     when {
-                        current === this._getRightChild(parent) -> {
+                        this._checkSame(current,  this._getRightChild(parent)) -> {
                             this.__rotateLeft_Switch(grandParent)
                             continue
                         }
 
-                        current === this._getLeftChild(parent) -> {
+                        this._checkSame(current,  this._getLeftChild(parent)) -> {
                             this.__rotateRight_Right(parent, grandParent)
                             current = parent
                             continue
@@ -321,8 +323,8 @@ abstract class AbstractRedBlackTree<NODE : Any> {
                 this.root = node2
             }
 
-            node1 === this._getLeftChild(parent1) -> this._setLeftChild(parent1, node2)
-            node1 === this._getRightChild(parent1) -> this._setRightChild(parent1, node2)
+            this._checkSame(node1,  this._getLeftChild(parent1)) -> this._setLeftChild(parent1, node2)
+            this._checkSame(node1,  this._getRightChild(parent1)) -> this._setRightChild(parent1, node2)
             else -> this.__throwTreeCorruptedNotChild(node1, parent1)
         }
         when {
@@ -331,8 +333,8 @@ abstract class AbstractRedBlackTree<NODE : Any> {
                 this.root = node1
             }
 
-            node2 === this._getLeftChild(parent2) -> this._setLeftChild(parent2, node1)
-            node2 === this._getRightChild(parent2) -> this._setRightChild(parent2, node1)
+            this._checkSame(node2,  this._getLeftChild(parent2)) -> this._setLeftChild(parent2, node1)
+            this._checkSame(node2,  this._getRightChild(parent2)) -> this._setRightChild(parent2, node1)
             else -> this.__throwTreeCorruptedNotChild(node2, parent2)
         }
         this._setParent(node2, parent1)
@@ -362,51 +364,51 @@ abstract class AbstractRedBlackTree<NODE : Any> {
         val parent2 = this._getParent(node2)
 
         when {
-            node1 === left2 ->
+            this._checkSame(node1,  left2) ->
                 when {
                     parent2 == null -> {
                         node2.__assertIsRoot()
                         this.__swapNeighboursLeft(node2, node1, null) { c -> this.root = c }
                     }
 
-                    node2 === this._getLeftChild(parent2) -> this.__swapNeighboursLeft(node2, node1, parent2) { c -> this._setLeftChild(parent2, c) }
-                    node2 === this._getRightChild(parent2) -> this.__swapNeighboursLeft(node2, node1, parent2) { c -> this._setRightChild(parent2, c) }
+                    this._checkSame(node2,  this._getLeftChild(parent2)) -> this.__swapNeighboursLeft(node2, node1, parent2) { c -> this._setLeftChild(parent2, c) }
+                    this._checkSame(node2,  this._getRightChild(parent2)) -> this.__swapNeighboursLeft(node2, node1, parent2) { c -> this._setRightChild(parent2, c) }
                     else -> this.__throwTreeCorruptedNotChild(node2, parent2)
                 }
 
-            node1 === right2 ->
+            this._checkSame(node1,  right2) ->
                 when {
                     parent2 == null -> {
                         node2.__assertIsRoot()
                         this.__swapNeighboursRight(node2, node1, null) { c -> this.root = c }
                     }
 
-                    node2 === this._getLeftChild(parent2) -> this.__swapNeighboursRight(node2, node1, parent2) { c -> this._setLeftChild(parent2, c) }
-                    node2 === this._getRightChild(parent2) -> this.__swapNeighboursRight(node2, node1, parent2) { c -> this._setRightChild(parent2, c) }
+                    this._checkSame(node2,  this._getLeftChild(parent2)) -> this.__swapNeighboursRight(node2, node1, parent2) { c -> this._setLeftChild(parent2, c) }
+                    this._checkSame(node2,  this._getRightChild(parent2)) -> this.__swapNeighboursRight(node2, node1, parent2) { c -> this._setRightChild(parent2, c) }
                     else -> this.__throwTreeCorruptedNotChild(node2, parent2)
                 }
 
-            node2 === left1 ->
+            this._checkSame(node2,  left1) ->
                 when {
                     parent1 == null -> {
                         node1.__assertIsRoot()
                         this.__swapNeighboursLeft(node1, node2, null) { c -> this.root = c }
                     }
 
-                    node1 === this._getLeftChild(parent1) -> this.__swapNeighboursLeft(node1, node2, parent1) { c -> this._setLeftChild(parent1, c) }
-                    node1 === this._getRightChild(parent1) -> this.__swapNeighboursLeft(node1, node2, parent1) { c -> this._setRightChild(parent1, c) }
+                    this._checkSame(node1,  this._getLeftChild(parent1)) -> this.__swapNeighboursLeft(node1, node2, parent1) { c -> this._setLeftChild(parent1, c) }
+                    this._checkSame(node1,  this._getRightChild(parent1)) -> this.__swapNeighboursLeft(node1, node2, parent1) { c -> this._setRightChild(parent1, c) }
                     else -> this.__throwTreeCorruptedNotChild(node1, parent1)
                 }
 
-            node2 === right1 ->
+            this._checkSame(node2,  right1) ->
                 when {
                     parent1 == null -> {
                         node1.__assertIsRoot()
                         this.__swapNeighboursRight(node1, node2, null) { c -> this.root = c }
                     }
 
-                    node1 === this._getLeftChild(parent1) -> this.__swapNeighboursRight(node1, node2, parent1) { c -> this._setLeftChild(parent1, c) }
-                    node1 === this._getRightChild(parent1) -> this.__swapNeighboursRight(node1, node2, parent1) { c -> this._setRightChild(parent1, c) }
+                    this._checkSame(node1,  this._getLeftChild(parent1)) -> this.__swapNeighboursRight(node1, node2, parent1) { c -> this._setLeftChild(parent1, c) }
+                    this._checkSame(node1,  this._getRightChild(parent1)) -> this.__swapNeighboursRight(node1, node2, parent1) { c -> this._setRightChild(parent1, c) }
                     else -> this.__throwTreeCorruptedNotChild(node1, parent1)
                 }
 
@@ -433,8 +435,8 @@ abstract class AbstractRedBlackTree<NODE : Any> {
                     if (this._getColor(node) != Color.RED)
                         this.__balanceAfterUnlinking(node, parent)
                     when {
-                        node === this._getLeftChild(parent) -> this._setLeftChild(parent, null)
-                        node === this._getRightChild(parent) -> this._setRightChild(parent, null)
+                        this._checkSame(node,  this._getLeftChild(parent)) -> this._setLeftChild(parent, null)
+                        this._checkSame(node,  this._getRightChild(parent)) -> this._setRightChild(parent, null)
                         else -> this.__throwTreeCorruptedNotChild(node, parent)
                     }
                     return
@@ -477,7 +479,7 @@ abstract class AbstractRedBlackTree<NODE : Any> {
         var continueBalancing: Boolean
         do {
             when {
-                node === this._getLeftChild(parent) -> continueBalancing = this.___balanceAfterUnlinking_Directed(
+                this._checkSame(node,  this._getLeftChild(parent)) -> continueBalancing = this.___balanceAfterUnlinking_Directed(
                     node = node,
                     parent = parent,
                     getForwardChild = this::_getLeftChild,
@@ -487,7 +489,7 @@ abstract class AbstractRedBlackTree<NODE : Any> {
                     updateState = { newNode, newParent -> node = newNode; parent = newParent }
                 )
 
-                node === this._getRightChild(parent) -> continueBalancing = this.___balanceAfterUnlinking_Directed(
+                this._checkSame(node,  this._getRightChild(parent)) -> continueBalancing = this.___balanceAfterUnlinking_Directed(
                     node = node,
                     parent = parent,
                     getForwardChild = this::_getRightChild,
