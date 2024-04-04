@@ -438,7 +438,7 @@ abstract class AbstractRedBlackTree<NODE : Any> {
                         }
                         return
                     }
-                    this.deleteCase246(node, parent)
+                    this.__balanceAfterUnlinking(node, parent)
                     break
                 } else {
                     if (parent == null) {
@@ -505,131 +505,146 @@ abstract class AbstractRedBlackTree<NODE : Any> {
     /**
      * @param node expected to be [BLACK][AbstractRedBlackTree.Color.BLACK].
      */
-    private fun deleteCase246(node: NODE, parent: NODE) {
-        when {
-            node === this._getLeftChild(parent) -> {
-                var sibling = this._getRightChild(parent) ?: this.__throwTreeCorruptedNotBalanced(node, "black node doesn't have sibling")
-                when (this._getColor(sibling)) {
-                    Color.RED -> {
-                        // case 2
-                        this.__rotateLeft_Switch(parent)
-                        this._setColor(sibling, Color.BLACK)
-                        this._setColor(parent, Color.RED)
-                        sibling = this._getRightChild(parent) ?: this.__throwTreeCorruptedNotBalanced(node, "red sibling of black node doesn't have child (in current state sibling of node not exists)")
-                        val siblingLeftChild = this._getLeftChild(sibling)
-                        val siblingRightChild = this._getRightChild(sibling)
-                        if (siblingRightChild == null || this._getColor(siblingRightChild) == Color.BLACK) {
-                            if (siblingLeftChild == null || this._getColor(siblingLeftChild) == Color.BLACK) {
-                                // case 4
-                                this._setColor(parent, Color.BLACK)
-                                this._setColor(sibling, Color.RED)
-                            }
-                        } else {
-                            // case 6
+    private fun __balanceAfterUnlinking(nodeForDeleting: NODE, parent: NODE) {
+        var node = nodeForDeleting
+        @Suppress("NAME_SHADOWING") var parent = parent
+        while (true) {
+            when {
+                node === this._getLeftChild(parent) -> {
+                    var sibling = this._getRightChild(parent) ?: this.__throwTreeCorruptedNotBalanced(node, "black node doesn't have sibling")
+                    when (this._getColor(sibling)) {
+                        Color.RED -> {
+                            // case 2
                             this.__rotateLeft_Switch(parent)
-                            this._setColor(siblingRightChild, Color.BLACK)
-                        }
-                        return
-                    }
-
-                    Color.BLACK -> {
-                        val siblingLeftChild = this._getLeftChild(sibling)
-                        val siblingRightChild = this._getRightChild(sibling)
-                        if (siblingRightChild == null || this._getColor(siblingRightChild) == Color.BLACK) {
-                            if (siblingLeftChild == null || this._getColor(siblingLeftChild) == Color.BLACK) {
-                                if (this._getColor(parent) == Color.BLACK) {
-                                    // case 3
-                                    this._setColor(sibling, Color.RED)
-                                    val grandparent = this._getParent(parent)
-                                    if (grandparent == null) {
-                                        parent.__assertIsRoot()
-                                        return
-                                    } else {
-                                        return this.deleteCase246(parent, grandparent)
-                                    }
-                                } else {
+                            this._setColor(sibling, Color.BLACK)
+                            this._setColor(parent, Color.RED)
+                            sibling = this._getRightChild(parent) ?: this.__throwTreeCorruptedNotBalanced(node, "red sibling of black node doesn't have child (in current state sibling of node not exists)")
+                            val siblingLeftChild = this._getLeftChild(sibling)
+                            val siblingRightChild = this._getRightChild(sibling)
+                            if (siblingRightChild == null || this._getColor(siblingRightChild) == Color.BLACK) {
+                                if (siblingLeftChild == null || this._getColor(siblingLeftChild) == Color.BLACK) {
                                     // case 4
                                     this._setColor(parent, Color.BLACK)
                                     this._setColor(sibling, Color.RED)
                                 }
+                                return
                             } else {
-                                // case 5
-                                this.__rotateRight_Right(sibling, parent)
+                                // case 6
                                 this.__rotateLeft_Switch(parent)
-                                this._setColor(sibling, Color.BLACK)
+                                this._setColor(siblingRightChild, Color.BLACK)
+                                return
                             }
-                        } else {
-                            // case 6
-                            this.__rotateLeft_Switch(parent)
-                            this._setColor(siblingRightChild, Color.BLACK)
+                        }
+
+                        Color.BLACK -> {
+                            val siblingLeftChild = this._getLeftChild(sibling)
+                            val siblingRightChild = this._getRightChild(sibling)
+                            if (siblingRightChild == null || this._getColor(siblingRightChild) == Color.BLACK) {
+                                if (siblingLeftChild == null || this._getColor(siblingLeftChild) == Color.BLACK) {
+                                    if (this._getColor(parent) == Color.BLACK) {
+                                        // case 3
+                                        this._setColor(sibling, Color.RED)
+                                        val grandparent = this._getParent(parent)
+                                        if (grandparent == null) {
+                                            parent.__assertIsRoot()
+                                            return
+                                        } else {
+                                            node = parent
+                                            parent = grandparent
+                                            continue
+                                        }
+                                    } else {
+                                        // case 4
+                                        this._setColor(parent, Color.BLACK)
+                                        this._setColor(sibling, Color.RED)
+                                        return
+                                    }
+                                } else {
+                                    // case 5
+                                    this.__rotateRight_Right(sibling, parent)
+                                    this.__rotateLeft_Switch(parent)
+                                    this._setColor(sibling, Color.BLACK)
+                                    return
+                                }
+                            } else {
+                                // case 6
+                                this.__rotateLeft_Switch(parent)
+                                this._setColor(siblingRightChild, Color.BLACK)
+                                return
+                            }
                         }
                     }
                 }
-            }
 
-            node === this._getRightChild(parent) -> {
-                var sibling = this._getLeftChild(parent) ?: this.__throwTreeCorruptedNotBalanced(node, "black node doesn't have sibling")
-                when (this._getColor(sibling)) {
-                    Color.RED -> {
-                        // case 2
-                        this.__rotateRight_Switch(parent)
-                        this._setColor(sibling, Color.BLACK)
-                        this._setColor(parent, Color.RED)
-                        sibling = this._getLeftChild(parent) ?: this.__throwTreeCorruptedNotBalanced(node, "red sibling of black node doesn't have child (in current state sibling of node not exists)")
-                        val siblingRightChild = this._getRightChild(sibling)
-                        val siblingLeftChild = this._getLeftChild(sibling)
-                        if (siblingLeftChild == null || this._getColor(siblingLeftChild) == Color.BLACK) {
-                            if (siblingRightChild == null || this._getColor(siblingRightChild) == Color.BLACK) {
-                                // case 4
-                                this._setColor(parent, Color.BLACK)
-                                this._setColor(sibling, Color.RED)
-                            }
-                        } else {
-                            // case 6
+                node === this._getRightChild(parent) -> {
+                    var sibling = this._getLeftChild(parent) ?: this.__throwTreeCorruptedNotBalanced(node, "black node doesn't have sibling")
+                    when (this._getColor(sibling)) {
+                        Color.RED -> {
+                            // case 2
                             this.__rotateRight_Switch(parent)
-                            this._setColor(siblingLeftChild, Color.BLACK)
-                        }
-                        return
-                    }
-
-                    Color.BLACK -> {
-                        val siblingRightChild = this._getRightChild(sibling)
-                        val siblingLeftChild = this._getLeftChild(sibling)
-                        if (siblingLeftChild == null || this._getColor(siblingLeftChild) == Color.BLACK) {
-                            if (siblingRightChild == null || this._getColor(siblingRightChild) == Color.BLACK) {
-                                if (this._getColor(parent) == Color.BLACK) {
-                                    // case 3
-                                    this._setColor(sibling, Color.RED)
-                                    val grandparent = this._getParent(parent)
-                                    if (grandparent == null) {
-                                        parent.__assertIsRoot()
-                                        return
-                                    } else {
-                                        return this.deleteCase246(parent, grandparent)
-                                    }
-                                } else {
+                            this._setColor(sibling, Color.BLACK)
+                            this._setColor(parent, Color.RED)
+                            sibling = this._getLeftChild(parent) ?: this.__throwTreeCorruptedNotBalanced(node, "red sibling of black node doesn't have child (in current state sibling of node not exists)")
+                            val siblingRightChild = this._getRightChild(sibling)
+                            val siblingLeftChild = this._getLeftChild(sibling)
+                            if (siblingLeftChild == null || this._getColor(siblingLeftChild) == Color.BLACK) {
+                                if (siblingRightChild == null || this._getColor(siblingRightChild) == Color.BLACK) {
                                     // case 4
                                     this._setColor(parent, Color.BLACK)
                                     this._setColor(sibling, Color.RED)
                                 }
+                                return
                             } else {
-                                // case 5
-                                this.__rotateLeft_Left(sibling, parent)
+                                // case 6
                                 this.__rotateRight_Switch(parent)
-                                this._setColor(sibling, Color.BLACK)
+                                this._setColor(siblingLeftChild, Color.BLACK)
+                                return
                             }
-                        } else {
-                            // case 6
-                            this.__rotateRight_Switch(parent)
-                            this._setColor(siblingLeftChild, Color.BLACK)
+                        }
+
+                        Color.BLACK -> {
+                            val siblingRightChild = this._getRightChild(sibling)
+                            val siblingLeftChild = this._getLeftChild(sibling)
+                            if (siblingLeftChild == null || this._getColor(siblingLeftChild) == Color.BLACK) {
+                                if (siblingRightChild == null || this._getColor(siblingRightChild) == Color.BLACK) {
+                                    if (this._getColor(parent) == Color.BLACK) {
+                                        // case 3
+                                        this._setColor(sibling, Color.RED)
+                                        val grandparent = this._getParent(parent)
+                                        if (grandparent == null) {
+                                            parent.__assertIsRoot()
+                                            return
+                                        } else {
+                                            node = parent
+                                            parent = grandparent
+                                            continue
+                                        }
+                                    } else {
+                                        // case 4
+                                        this._setColor(parent, Color.BLACK)
+                                        this._setColor(sibling, Color.RED)
+                                        return
+                                    }
+                                } else {
+                                    // case 5
+                                    this.__rotateLeft_Left(sibling, parent)
+                                    this.__rotateRight_Switch(parent)
+                                    this._setColor(sibling, Color.BLACK)
+                                    return
+                                }
+                            } else {
+                                // case 6
+                                this.__rotateRight_Switch(parent)
+                                this._setColor(siblingLeftChild, Color.BLACK)
+                                return
+                            }
                         }
                     }
                 }
+
+                else -> this.__throwTreeCorruptedNotChild(node, parent)
             }
-
-            else -> this.__throwTreeCorruptedNotChild(node, parent)
         }
-
     }
 
     fun subtreeMin(node: NODE): NODE {
