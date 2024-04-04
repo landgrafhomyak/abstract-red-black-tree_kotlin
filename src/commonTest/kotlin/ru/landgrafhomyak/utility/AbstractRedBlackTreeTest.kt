@@ -2,11 +2,15 @@ package ru.landgrafhomyak.utility
 
 import kotlin.test.Test
 import kotlin.test.assertFalse
-import kotlin.test.assertTrue
 
 @Suppress("TestFunctionName")
-internal class AbstractRedBlackTreeTest<T : Any> {
-    private class TestNode(val key: Int, var parent: TestNode? = null) {
+internal class AbstractRedBlackTreeTest {
+    private class TestNode(val key: Int, var parent: TestNode? = null) /*: AbstractMap<TestNode.Key, Any?>()*/ {
+        enum class Key {
+            LEFT, RIGHT, COLOR
+        }
+
+
         var leftChild: TestNode? = null
         var rightChild: TestNode? = null
         var color: AbstractRedBlackTree.Color = AbstractRedBlackTree.Color.RED
@@ -23,6 +27,11 @@ internal class AbstractRedBlackTreeTest<T : Any> {
 
             return "${prefix}{${this@_fmtNode.key}, ${this@_fmtNode.color.string}}"
         }
+
+//        private class Entry(override val key: Key, override val value: Any?) : Map.Entry<Key, Any?>
+
+//        override val entries: Set<Map.Entry<Key, Any?>>
+//            get() = linkedSetOf(Entry(Key.LEFT, this.leftChild), Entry(Key.RIGHT, this.rightChild), Entry(Key.COLOR, this.color))
 
         override fun toString(): String = "<node${this.leftChild._fmtNode(" left=")} ${this._fmtNode("")}${this.rightChild._fmtNode(" right=")}>"
     }
@@ -137,14 +146,17 @@ internal class AbstractRedBlackTreeTest<T : Any> {
     @Test
     fun testNaturals() {
         val tree = RedBlackTreeTestImpl()
-        (-1000..1000).forEachIndexed { i, n ->
-            tree.add(n)
-            println()
-            assertFalse("Invalid tree after adding $i-th element $n") { this._checkTree(tree) }
-        }
-        while (true) {
-            tree.unlink(tree.root ?: break)
-            assertFalse("Invalid tree after removing element") { this._checkTree(tree) }
-        }
+        (0..1000)
+            .onEachIndexed { i, n ->
+                tree.add(n)
+                Unit
+                assertFalse("Invalid tree after adding $i-th element $n") { this._checkTree(tree) }
+            }
+            .onEachIndexed { i, n ->
+                val node = tree.root!!
+                tree.unlink(node)
+                Unit
+                assertFalse("Invalid tree after removing element $i-th element ${node.key}") { this._checkTree(tree) }
+            }
     }
 }
