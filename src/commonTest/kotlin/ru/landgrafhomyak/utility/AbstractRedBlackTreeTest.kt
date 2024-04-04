@@ -137,7 +137,7 @@ internal class AbstractRedBlackTreeTest<T : Any> {
     @Test
     fun testNaturals() {
         val tree = RedBlackTreeTestImpl()
-        (-100..100).forEachIndexed { i, n ->
+        (-1000..1000).forEachIndexed { i, n ->
             tree.add(n)
             println()
             assertFalse("Invalid tree after adding $i-th element $n") { this._checkTree(tree) }

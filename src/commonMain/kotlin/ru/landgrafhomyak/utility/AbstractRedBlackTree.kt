@@ -141,6 +141,7 @@ abstract class AbstractRedBlackTree<NODE : Any> {
         }
     }
 
+
     private fun __throwTreeCorruptedNotChild(node: NODE, parent: NODE): Nothing =
         throw TreeCorruptedException.TreeCorruptedNotChildException(this, node, parent)
 
@@ -416,53 +417,56 @@ abstract class AbstractRedBlackTree<NODE : Any> {
     }
 
     fun unlink(node: NODE) {
-        val nodeLeftChild = this._getLeftChild(node)
-        val nodeRightChild = this._getRightChild(node)
+        while (true) {
+            val nodeLeftChild = this._getLeftChild(node)
+            val nodeRightChild = this._getRightChild(node)
 
-        val parent = this._getParent(node)
-        if (nodeLeftChild == null) {
-            if (nodeRightChild == null) {
-                if (parent == null) {
-                    node.__assertIsRoot()
-                    this.root = null
-                    return
-                }
-
-                if (this._getColor(node) == Color.RED) {
-                    when {
-                        node === this._getLeftChild(parent) -> this._setLeftChild(parent, null)
-                        node === this._getRightChild(parent) -> this._setRightChild(parent, null)
-                        else -> this.__throwTreeCorruptedNotChild(node, parent)
+            val parent = this._getParent(node)
+            if (nodeLeftChild == null) {
+                if (nodeRightChild == null) {
+                    if (parent == null) {
+                        node.__assertIsRoot()
+                        this.root = null
+                        return
                     }
-                    return
-                }
-                this.deleteCase2(node, parent)
-            } else {
-                if (parent == null) {
-                    node.__assertIsRoot()
-                    this.root = nodeRightChild
-                    this._setParent(nodeRightChild, null)
-                    this._setColor(nodeRightChild, Color.BLACK)
-                    return
-                }
 
-                val prev = this.subtreeMin(nodeRightChild)
-                this.swapNodes(node, prev)
-                this.unlink(node)
-            }
-        } else {
-            if (nodeRightChild == null) {
-                if (parent == null) {
-                    node.__assertIsRoot()
-                    this.root = nodeLeftChild
-                    this._setParent(nodeLeftChild, null)
-                    this._setColor(nodeLeftChild, Color.BLACK)
-                    return
+                    if (this._getColor(node) == Color.RED) {
+                        when {
+                            node === this._getLeftChild(parent) -> this._setLeftChild(parent, null)
+                            node === this._getRightChild(parent) -> this._setRightChild(parent, null)
+                            else -> this.__throwTreeCorruptedNotChild(node, parent)
+                        }
+                        return
+                    }
+                    this.deleteCase2(node, parent)
+                    break
+                } else {
+                    if (parent == null) {
+                        node.__assertIsRoot()
+                        this.root = nodeRightChild
+                        this._setParent(nodeRightChild, null)
+                        this._setColor(nodeRightChild, Color.BLACK)
+                        return
+                    }
+
+                    val repl = this.subtreeMin(nodeRightChild)
+                    this.swapNodes(node, repl)
+                    continue
                 }
+            } else {
+                if (nodeRightChild == null) {
+                    if (parent == null) {
+                        node.__assertIsRoot()
+                        this.root = nodeLeftChild
+                        this._setParent(nodeLeftChild, null)
+                        this._setColor(nodeLeftChild, Color.BLACK)
+                        return
+                    }
+                }
+                val repl = this.subtreeMax(nodeLeftChild)
+                this.swapNodes(node, repl)
+                continue
             }
-            val prev = this.subtreeMax(nodeLeftChild)
-            this.swapNodes(node, prev)
-            this.unlink(node)
         }
 
         val newParent = this._getParent(node)
@@ -494,7 +498,7 @@ abstract class AbstractRedBlackTree<NODE : Any> {
                     this._setParent(child, newParent)
             }
 
-            else -> Unit // todo this.__throwTreeCorruptedNotChild(node, newParent)
+            else -> this.__throwTreeCorruptedNotChild(node, newParent)
         }
     }
 
