@@ -430,16 +430,14 @@ abstract class AbstractRedBlackTree<NODE : Any> {
                         return
                     }
 
-                    if (this._getColor(node) == Color.RED) {
-                        when {
-                            node === this._getLeftChild(parent) -> this._setLeftChild(parent, null)
-                            node === this._getRightChild(parent) -> this._setRightChild(parent, null)
-                            else -> this.__throwTreeCorruptedNotChild(node, parent)
-                        }
-                        return
+                    if (this._getColor(node) != Color.RED)
+                        this.__balanceAfterUnlinking(node, parent)
+                    when {
+                        node === this._getLeftChild(parent) -> this._setLeftChild(parent, null)
+                        node === this._getRightChild(parent) -> this._setRightChild(parent, null)
+                        else -> this.__throwTreeCorruptedNotChild(node, parent)
                     }
-                    this.__balanceAfterUnlinking(node, parent)
-                    break
+                    return
                 } else {
                     if (parent == null) {
                         node.__assertIsRoot()
@@ -467,38 +465,6 @@ abstract class AbstractRedBlackTree<NODE : Any> {
                 this.swapNodes(node, repl)
                 continue
             }
-        }
-
-        val newParent = this._getParent(node)
-        when {
-            newParent == null -> {
-                node.__assertIsRoot()
-                this.root = null
-            }
-
-            node === this._getLeftChild(newParent) -> {
-                var child = this._getLeftChild(node)
-                if (child == null)
-                    child = this._getRightChild(node)
-                else
-                    this._getRightChild(node)?.also { TODO() }
-                this._setLeftChild(newParent, child)
-                if (child != null)
-                    this._setParent(child, newParent)
-            }
-
-            node === this._getRightChild(newParent) -> {
-                var child = this._getLeftChild(node)
-                if (child == null)
-                    child = this._getRightChild(node)
-                else
-                    this._getRightChild(node)?.also { TODO() }
-                this._setRightChild(newParent, child)
-                if (child != null)
-                    this._setParent(child, newParent)
-            }
-
-            else -> this.__throwTreeCorruptedNotChild(node, newParent)
         }
     }
 
