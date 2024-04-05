@@ -19,7 +19,12 @@ abstract class AbstractRedBlackTree<NODE : Any> {
 
     protected open fun _checkSame(leftNode: NODE, rightNode: NODE?) = leftNode === rightNode
     enum class Color(@JvmField val asBoolean: Boolean) {
-        RED(true), BLACK(false)
+        RED(true), BLACK(false);
+
+        companion object {
+            @JvmStatic
+            fun fromBoolean(value: Boolean) = if (value) Color.RED else Color.BLACK
+        }
     }
 
     var root: NODE? = null
@@ -183,7 +188,7 @@ abstract class AbstractRedBlackTree<NODE : Any> {
             }
 
             when {
-                this._checkSame(parent,  this._getLeftChild(grandParent)) -> {
+                this._checkSame(parent, this._getLeftChild(grandParent)) -> {
                     val uncle = this._getRightChild(grandParent)
                     if (uncle != null && this._getColor(uncle) == Color.RED) {
                         this._setColor(parent, Color.BLACK)
@@ -194,12 +199,12 @@ abstract class AbstractRedBlackTree<NODE : Any> {
                     }
 
                     when {
-                        this._checkSame(current,  this._getLeftChild(parent)) -> {
+                        this._checkSame(current, this._getLeftChild(parent)) -> {
                             this.__rotateRight_Switch(grandParent)
                             continue
                         }
 
-                        this._checkSame(current,  this._getRightChild(parent)) -> {
+                        this._checkSame(current, this._getRightChild(parent)) -> {
                             this.__rotateLeft_Left(parent, grandParent)
                             current = parent
                             continue
@@ -209,7 +214,7 @@ abstract class AbstractRedBlackTree<NODE : Any> {
                     }
                 }
 
-                this._checkSame(parent,  this._getRightChild(grandParent)) -> {
+                this._checkSame(parent, this._getRightChild(grandParent)) -> {
                     val uncle = this._getLeftChild(grandParent)
                     if (uncle != null && this._getColor(uncle) == Color.RED) {
                         this._setColor(parent, Color.BLACK)
@@ -220,12 +225,12 @@ abstract class AbstractRedBlackTree<NODE : Any> {
                     }
 
                     when {
-                        this._checkSame(current,  this._getRightChild(parent)) -> {
+                        this._checkSame(current, this._getRightChild(parent)) -> {
                             this.__rotateLeft_Switch(grandParent)
                             continue
                         }
 
-                        this._checkSame(current,  this._getLeftChild(parent)) -> {
+                        this._checkSame(current, this._getLeftChild(parent)) -> {
                             this.__rotateRight_Right(parent, grandParent)
                             current = parent
                             continue
@@ -323,8 +328,8 @@ abstract class AbstractRedBlackTree<NODE : Any> {
                 this.root = node2
             }
 
-            this._checkSame(node1,  this._getLeftChild(parent1)) -> this._setLeftChild(parent1, node2)
-            this._checkSame(node1,  this._getRightChild(parent1)) -> this._setRightChild(parent1, node2)
+            this._checkSame(node1, this._getLeftChild(parent1)) -> this._setLeftChild(parent1, node2)
+            this._checkSame(node1, this._getRightChild(parent1)) -> this._setRightChild(parent1, node2)
             else -> this.__throwTreeCorruptedNotChild(node1, parent1)
         }
         when {
@@ -333,8 +338,8 @@ abstract class AbstractRedBlackTree<NODE : Any> {
                 this.root = node1
             }
 
-            this._checkSame(node2,  this._getLeftChild(parent2)) -> this._setLeftChild(parent2, node1)
-            this._checkSame(node2,  this._getRightChild(parent2)) -> this._setRightChild(parent2, node1)
+            this._checkSame(node2, this._getLeftChild(parent2)) -> this._setLeftChild(parent2, node1)
+            this._checkSame(node2, this._getRightChild(parent2)) -> this._setRightChild(parent2, node1)
             else -> this.__throwTreeCorruptedNotChild(node2, parent2)
         }
         this._setParent(node2, parent1)
@@ -364,51 +369,51 @@ abstract class AbstractRedBlackTree<NODE : Any> {
         val parent2 = this._getParent(node2)
 
         when {
-            this._checkSame(node1,  left2) ->
+            this._checkSame(node1, left2) ->
                 when {
                     parent2 == null -> {
                         node2.__assertIsRoot()
                         this.__swapNeighboursLeft(node2, node1, null) { c -> this.root = c }
                     }
 
-                    this._checkSame(node2,  this._getLeftChild(parent2)) -> this.__swapNeighboursLeft(node2, node1, parent2) { c -> this._setLeftChild(parent2, c) }
-                    this._checkSame(node2,  this._getRightChild(parent2)) -> this.__swapNeighboursLeft(node2, node1, parent2) { c -> this._setRightChild(parent2, c) }
+                    this._checkSame(node2, this._getLeftChild(parent2)) -> this.__swapNeighboursLeft(node2, node1, parent2) { c -> this._setLeftChild(parent2, c) }
+                    this._checkSame(node2, this._getRightChild(parent2)) -> this.__swapNeighboursLeft(node2, node1, parent2) { c -> this._setRightChild(parent2, c) }
                     else -> this.__throwTreeCorruptedNotChild(node2, parent2)
                 }
 
-            this._checkSame(node1,  right2) ->
+            this._checkSame(node1, right2) ->
                 when {
                     parent2 == null -> {
                         node2.__assertIsRoot()
                         this.__swapNeighboursRight(node2, node1, null) { c -> this.root = c }
                     }
 
-                    this._checkSame(node2,  this._getLeftChild(parent2)) -> this.__swapNeighboursRight(node2, node1, parent2) { c -> this._setLeftChild(parent2, c) }
-                    this._checkSame(node2,  this._getRightChild(parent2)) -> this.__swapNeighboursRight(node2, node1, parent2) { c -> this._setRightChild(parent2, c) }
+                    this._checkSame(node2, this._getLeftChild(parent2)) -> this.__swapNeighboursRight(node2, node1, parent2) { c -> this._setLeftChild(parent2, c) }
+                    this._checkSame(node2, this._getRightChild(parent2)) -> this.__swapNeighboursRight(node2, node1, parent2) { c -> this._setRightChild(parent2, c) }
                     else -> this.__throwTreeCorruptedNotChild(node2, parent2)
                 }
 
-            this._checkSame(node2,  left1) ->
+            this._checkSame(node2, left1) ->
                 when {
                     parent1 == null -> {
                         node1.__assertIsRoot()
                         this.__swapNeighboursLeft(node1, node2, null) { c -> this.root = c }
                     }
 
-                    this._checkSame(node1,  this._getLeftChild(parent1)) -> this.__swapNeighboursLeft(node1, node2, parent1) { c -> this._setLeftChild(parent1, c) }
-                    this._checkSame(node1,  this._getRightChild(parent1)) -> this.__swapNeighboursLeft(node1, node2, parent1) { c -> this._setRightChild(parent1, c) }
+                    this._checkSame(node1, this._getLeftChild(parent1)) -> this.__swapNeighboursLeft(node1, node2, parent1) { c -> this._setLeftChild(parent1, c) }
+                    this._checkSame(node1, this._getRightChild(parent1)) -> this.__swapNeighboursLeft(node1, node2, parent1) { c -> this._setRightChild(parent1, c) }
                     else -> this.__throwTreeCorruptedNotChild(node1, parent1)
                 }
 
-            this._checkSame(node2,  right1) ->
+            this._checkSame(node2, right1) ->
                 when {
                     parent1 == null -> {
                         node1.__assertIsRoot()
                         this.__swapNeighboursRight(node1, node2, null) { c -> this.root = c }
                     }
 
-                    this._checkSame(node1,  this._getLeftChild(parent1)) -> this.__swapNeighboursRight(node1, node2, parent1) { c -> this._setLeftChild(parent1, c) }
-                    this._checkSame(node1,  this._getRightChild(parent1)) -> this.__swapNeighboursRight(node1, node2, parent1) { c -> this._setRightChild(parent1, c) }
+                    this._checkSame(node1, this._getLeftChild(parent1)) -> this.__swapNeighboursRight(node1, node2, parent1) { c -> this._setLeftChild(parent1, c) }
+                    this._checkSame(node1, this._getRightChild(parent1)) -> this.__swapNeighboursRight(node1, node2, parent1) { c -> this._setRightChild(parent1, c) }
                     else -> this.__throwTreeCorruptedNotChild(node1, parent1)
                 }
 
@@ -435,8 +440,8 @@ abstract class AbstractRedBlackTree<NODE : Any> {
                     if (this._getColor(node) != Color.RED)
                         this.__balanceAfterUnlinking(node, parent)
                     when {
-                        this._checkSame(node,  this._getLeftChild(parent)) -> this._setLeftChild(parent, null)
-                        this._checkSame(node,  this._getRightChild(parent)) -> this._setRightChild(parent, null)
+                        this._checkSame(node, this._getLeftChild(parent)) -> this._setLeftChild(parent, null)
+                        this._checkSame(node, this._getRightChild(parent)) -> this._setRightChild(parent, null)
                         else -> this.__throwTreeCorruptedNotChild(node, parent)
                     }
                     return
@@ -479,7 +484,7 @@ abstract class AbstractRedBlackTree<NODE : Any> {
         var continueBalancing: Boolean
         do {
             when {
-                this._checkSame(node,  this._getLeftChild(parent)) -> continueBalancing = this.___balanceAfterUnlinking_Directed(
+                this._checkSame(node, this._getLeftChild(parent)) -> continueBalancing = this.___balanceAfterUnlinking_Directed(
                     node = node,
                     parent = parent,
                     getForwardChild = this::_getLeftChild,
@@ -489,7 +494,7 @@ abstract class AbstractRedBlackTree<NODE : Any> {
                     updateState = { newNode, newParent -> node = newNode; parent = newParent }
                 )
 
-                this._checkSame(node,  this._getRightChild(parent)) -> continueBalancing = this.___balanceAfterUnlinking_Directed(
+                this._checkSame(node, this._getRightChild(parent)) -> continueBalancing = this.___balanceAfterUnlinking_Directed(
                     node = node,
                     parent = parent,
                     getForwardChild = this::_getRightChild,
@@ -538,65 +543,61 @@ abstract class AbstractRedBlackTree<NODE : Any> {
             callsInPlace(updateState, InvocationKind.AT_MOST_ONCE)
         }
         var sibling = getOppositeChild(parent) ?: this.__throwTreeCorruptedNotBalanced(node, "black node doesn't have sibling")
-        when (this._getColor(sibling)) {
-            Color.RED -> {
-                // case 2
+        if (this._getColor(sibling).asBoolean) /* if RED */ {
+            // case 2
+            rotateForward_Switch(parent)
+            this._setColor(sibling, Color.BLACK)
+            this._setColor(parent, Color.RED)
+            sibling = getOppositeChild(parent) ?: this.__throwTreeCorruptedNotBalanced(node, "red sibling of black node doesn't have child (in current state sibling of node not exists)")
+            val siblingForwardChild = getForwardChild(sibling)
+            val siblingOppositeChild = getOppositeChild(sibling)
+            if (siblingOppositeChild == null || this._getColor(siblingOppositeChild) == Color.BLACK) {
+                if (siblingForwardChild == null || this._getColor(siblingForwardChild) == Color.BLACK) {
+                    // case 4
+                    this._setColor(parent, Color.BLACK)
+                    this._setColor(sibling, Color.RED)
+                }
+                return false
+            } else {
+                // case 6
                 rotateForward_Switch(parent)
-                this._setColor(sibling, Color.BLACK)
-                this._setColor(parent, Color.RED)
-                sibling = getOppositeChild(parent) ?: this.__throwTreeCorruptedNotBalanced(node, "red sibling of black node doesn't have child (in current state sibling of node not exists)")
-                val siblingForwardChild = getForwardChild(sibling)
-                val siblingOppositeChild = getOppositeChild(sibling)
-                if (siblingOppositeChild == null || this._getColor(siblingOppositeChild) == Color.BLACK) {
-                    if (siblingForwardChild == null || this._getColor(siblingForwardChild) == Color.BLACK) {
+                this._setColor(siblingOppositeChild, Color.BLACK)
+                return false
+            }
+        } else /* if BLACK */ {
+            val siblingForwardChild = getForwardChild(sibling)
+            val siblingOppositeChild = getOppositeChild(sibling)
+            if (siblingOppositeChild == null || this._getColor(siblingOppositeChild) == Color.BLACK) {
+                if (siblingForwardChild == null || this._getColor(siblingForwardChild) == Color.BLACK) {
+                    if (this._getColor(parent) == Color.BLACK) {
+                        // case 3
+                        this._setColor(sibling, Color.RED)
+                        val grandparent = this._getParent(parent)
+                        if (grandparent == null) {
+                            parent.__assertIsRoot()
+                            return false
+                        } else {
+                            updateState(parent, grandparent)
+                            return true
+                        }
+                    } else {
                         // case 4
                         this._setColor(parent, Color.BLACK)
                         this._setColor(sibling, Color.RED)
-                    }
-                    return false
-                } else {
-                    // case 6
-                    rotateForward_Switch(parent)
-                    this._setColor(siblingOppositeChild, Color.BLACK)
-                    return false
-                }
-            }
-
-            Color.BLACK -> {
-                val siblingForwardChild = getForwardChild(sibling)
-                val siblingOppositeChild = getOppositeChild(sibling)
-                if (siblingOppositeChild == null || this._getColor(siblingOppositeChild) == Color.BLACK) {
-                    if (siblingForwardChild == null || this._getColor(siblingForwardChild) == Color.BLACK) {
-                        if (this._getColor(parent) == Color.BLACK) {
-                            // case 3
-                            this._setColor(sibling, Color.RED)
-                            val grandparent = this._getParent(parent)
-                            if (grandparent == null) {
-                                parent.__assertIsRoot()
-                                return false
-                            } else {
-                                updateState(parent, grandparent)
-                                return true
-                            }
-                        } else {
-                            // case 4
-                            this._setColor(parent, Color.BLACK)
-                            this._setColor(sibling, Color.RED)
-                            return false
-                        }
-                    } else {
-                        // case 5
-                        rotateOpposite_Opposite(sibling, parent)
-                        rotateForward_Switch(parent)
-                        this._setColor(sibling, Color.BLACK)
                         return false
                     }
                 } else {
-                    // case 6
+                    // case 5
+                    rotateOpposite_Opposite(sibling, parent)
                     rotateForward_Switch(parent)
-                    this._setColor(siblingOppositeChild, Color.BLACK)
+                    this._setColor(sibling, Color.BLACK)
                     return false
                 }
+            } else {
+                // case 6
+                rotateForward_Switch(parent)
+                this._setColor(siblingOppositeChild, Color.BLACK)
+                return false
             }
         }
     }
