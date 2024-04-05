@@ -1,0 +1,115 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "url": "../../abstract-red-black-tree/1.1/abstract-red-black-tree-1.1.module",
+    "group": "ru.landgrafhomyak.collections",
+    "module": "abstract-red-black-tree",
+    "version": "1.1",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.7"
+    }
+  },
+  "variants": [
+    {
+      "name": "iosX64ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "ios_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-common",
+          "version": {
+            "requires": "1.9.0"
+          }
+        },
+        {
+          "group": "ru.landgrafhomyak.collections",
+          "module": "binary-tree-utilities",
+          "version": {
+            "requires": "1.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "abstract-red-black-tree.klib",
+          "url": "abstract-red-black-tree-iosx64-1.1.klib",
+          "size": 25728,
+          "sha512": "6addca6bfb8b4a1005aeb7c9c5bdeb03bb45dc20e13205dd8d0fa2c978d5e0979e1b3af0e589d5250d97213732268fbe84362700bb7e001894246ff4a4295a50",
+          "sha256": "c146d76f766d08a33c77ede705159249bba58a47ec9f54aa72b451ce48020598",
+          "sha1": "a026fe3230ad85f18dd65a35718aa18fd88cdae1",
+          "md5": "768af349cd5571f5f80486d4608e5edc"
+        }
+      ]
+    },
+    {
+      "name": "iosX64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "ios_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "files": [
+        {
+          "name": "abstract-red-black-tree-iosx64-1.1-sources.jar",
+          "url": "abstract-red-black-tree-iosx64-1.1-sources.jar",
+          "size": 4514,
+          "sha512": "7b63eef3423119e78d6e9deb419fc229859702a57a41891dfc84b362357897321cd0059f50a4c9713c4253f56b03403cd2d0631a75fa41fb1419c4e3111290b6",
+          "sha256": "c87f0caaa77025a8a27a35b49ccb0a385d70cecc635675ee454b8bc70406624a",
+          "sha1": "e199e2a8a69a2528fa45fa55ba6a7c0992f7d696",
+          "md5": "a95626887f72af1cca8dd54929079468"
+        }
+      ]
+    },
+    {
+      "name": "iosX64MetadataElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-metadata",
+        "org.jetbrains.kotlin.native.target": "ios_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-common",
+          "version": {
+            "requires": "1.9.0"
+          }
+        },
+        {
+          "group": "ru.landgrafhomyak.collections",
+          "module": "binary-tree-utilities",
+          "version": {
+            "requires": "1.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "abstract-red-black-tree-iosx64-1.1-metadata.jar",
+          "url": "abstract-red-black-tree-iosx64-1.1-metadata.jar",
+          "size": 261,
+          "sha512": "7c3d936246b1201d2bd46c86393ba77710df997a15480c6eab44c1dd2e25bbc037ab9c4d0d21c0a8b4e161616285a99033ca926321df0a1b459b57da7e9764cf",
+          "sha256": "3495e7f1b26ad6c4f6b113b7c5aef421e6dc83bb80fd294160f5bbd61ddebbac",
+          "sha1": "ffe4cbde08323ef54682f9d83d244569da4c8553",
+          "md5": "4b3c170c69ed63743864c33d69f62605"
+        }
+      ]
+    }
+  ]
+}

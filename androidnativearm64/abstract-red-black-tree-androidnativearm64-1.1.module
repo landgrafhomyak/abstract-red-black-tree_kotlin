@@ -1,0 +1,78 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "url": "../../abstract-red-black-tree/1.1/abstract-red-black-tree-1.1.module",
+    "group": "ru.landgrafhomyak.collections",
+    "module": "abstract-red-black-tree",
+    "version": "1.1",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.7"
+    }
+  },
+  "variants": [
+    {
+      "name": "androidNativeArm64ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "android_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-common",
+          "version": {
+            "requires": "1.9.0"
+          }
+        },
+        {
+          "group": "ru.landgrafhomyak.collections",
+          "module": "binary-tree-utilities",
+          "version": {
+            "requires": "1.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "abstract-red-black-tree.klib",
+          "url": "abstract-red-black-tree-androidnativearm64-1.1.klib",
+          "size": 25780,
+          "sha512": "a3a60bc60d28b04112c0aa77526ff977f4e13c229366750aef62bad07d915f868010a1f82299353fc6942e45f49379671e35b29733879e43d9a8c04962e972f0",
+          "sha256": "4ec96d7ffc948ad8b30976737f892ba4d4e8e6cad1209a4f5aa35bb97b04b05a",
+          "sha1": "d8f91dd8f9ffc69d716ddebc9edbfb6b9ee17e26",
+          "md5": "e88c3533ef8700c1171d5f0cf8e80e85"
+        }
+      ]
+    },
+    {
+      "name": "androidNativeArm64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "android_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "files": [
+        {
+          "name": "abstract-red-black-tree-androidnativearm64-1.1-sources.jar",
+          "url": "abstract-red-black-tree-androidnativearm64-1.1-sources.jar",
+          "size": 4514,
+          "sha512": "7b63eef3423119e78d6e9deb419fc229859702a57a41891dfc84b362357897321cd0059f50a4c9713c4253f56b03403cd2d0631a75fa41fb1419c4e3111290b6",
+          "sha256": "c87f0caaa77025a8a27a35b49ccb0a385d70cecc635675ee454b8bc70406624a",
+          "sha1": "e199e2a8a69a2528fa45fa55ba6a7c0992f7d696",
+          "md5": "a95626887f72af1cca8dd54929079468"
+        }
+      ]
+    }
+  ]
+}
