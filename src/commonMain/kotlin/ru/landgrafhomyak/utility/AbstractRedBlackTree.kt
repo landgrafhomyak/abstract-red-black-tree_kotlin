@@ -1,9 +1,12 @@
+@file:JvmName("AbstractRedBlackTreeKt")
+
 package ru.landgrafhomyak.utility
 
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 import kotlin.jvm.JvmField
+import kotlin.jvm.JvmName
 import kotlin.jvm.JvmStatic
 
 @Suppress("FunctionName", "MemberVisibilityCanBePrivate")
@@ -359,7 +362,7 @@ abstract class AbstractRedBlackTree<NODE : Any> {
         this._setColor(node2, color1)
     }
 
-    fun swapNodes(node1: NODE, node2: NODE) {
+    private fun __swapNodes(node1: NODE, node2: NODE) {
         val left1 = this._getLeftChild(node1)
         val right1 = this._getRightChild(node1)
         val parent1 = this._getParent(node1)
@@ -455,7 +458,7 @@ abstract class AbstractRedBlackTree<NODE : Any> {
                     }
 
                     val repl = this.subtreeMin(nodeRightChild)
-                    this.swapNodes(node, repl)
+                    this.__swapNodes(node, repl)
                     continue
                 }
             } else {
@@ -469,7 +472,7 @@ abstract class AbstractRedBlackTree<NODE : Any> {
                     }
                 }
                 val repl = this.subtreeMax(nodeLeftChild)
-                this.swapNodes(node, repl)
+                this.__swapNodes(node, repl)
                 continue
             }
         }

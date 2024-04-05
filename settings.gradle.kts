@@ -1,1 +1,1 @@
-rootProject.name = "red-black-tree"
+rootProject.name = "abstract-red-black-tree"
