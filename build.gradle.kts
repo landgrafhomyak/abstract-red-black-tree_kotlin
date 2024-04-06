@@ -21,8 +21,6 @@ kotlin {
         nodejs()
     }
 
-    macosArm64()
-    macosX64()
     linuxArm64()
     linuxX64()
     mingwX64()
@@ -30,16 +28,24 @@ kotlin {
     androidNativeArm64()
     androidNativeX64()
     androidNativeX86()
+
+    macosArm64()
+    macosX64()
     iosArm64()
     iosSimulatorArm64()
     iosX64()
     ios()
-//    wasm()
     tvos()
     watchos()
 
+//    wasm()
+
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+            dependencies {
+                implementation("ru.landgrafhomyak.collections:binary-tree-utilities:1.0")
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
