@@ -258,23 +258,22 @@ abstract class AbstractRedBlackTree<NODE : Any> {
         }
     }
 
-    private inline fun ___swapTopWithSubtree(
-        top: NODE,
-        subtree: NODE,
-        topParent: NODE?,
-        subtreeParent: NODE,
+    private inline fun ___swapWithKeyNeighbour(
+        node: NODE,
+        nodeParent: NODE?,
+        nodeForwardChild: NODE,
         setParent2Top: (newTop: NODE) -> Unit,
-        setParent2DistantSubtree: (newSubtree: NODE) -> Unit,
         getForwardChild: (node: NODE) -> NODE?,
         setForwardChild: (parent: NODE, child: NODE?) -> Unit,
         getOppositeChild: (node: NODE) -> NODE?,
         setOppositeChild: (parent: NODE, child: NODE?) -> Unit
     ) {
-        if (this._checkSame(top, subtreeParent)) {
+        var repl = getOppositeChild(nodeForwardChild)
+        if (repl == null) {
             BinaryTreeUtilities.Swap.swapNeighbours(
-                parent = top,
-                child = subtree,
-                grandparent = topParent,
+                parent = node,
+                child = nodeForwardChild,
+                grandparent = nodeParent,
                 setGrandparent2Parent = setParent2Top,
                 setParent = this::_setParent,
                 getForwardChild = getForwardChild,
@@ -282,14 +281,25 @@ abstract class AbstractRedBlackTree<NODE : Any> {
                 getOppositeChild = getOppositeChild,
                 setOppositeChild = setOppositeChild
             )
+            repl = nodeForwardChild
         } else {
+            var replParent = nodeForwardChild
+            var replPtr: NODE = repl
+
+            while (true) {
+                val newRepl = getOppositeChild(replPtr) ?: break
+                replParent = replPtr
+                replPtr = newRepl
+            }
+            repl = replPtr
+
             BinaryTreeUtilities.Swap.swapDistant(
-                node1 = top,
-                node2 = subtree,
-                node1parent = topParent,
-                node2parent = subtreeParent,
+                node1 = node,
+                node2 = repl,
+                node1parent = nodeParent,
+                node2parent = replParent,
                 setParent2Node1 = setParent2Top,
-                setParent2Node2 = setParent2DistantSubtree,
+                setParent2Node2 = { newChild -> setOppositeChild(replParent, newChild) },
                 setParent = this::_setParent,
                 getLeftChild = getForwardChild,
                 setLeftChild = setForwardChild,
@@ -297,24 +307,21 @@ abstract class AbstractRedBlackTree<NODE : Any> {
                 setRightChild = setOppositeChild
             )
         }
-        val topColor = this._getColor(top)
-        this._setColor(top, this._getColor(subtree))
-        this._setColor(subtree, topColor)
+        val topColor = this._getColor(node)
+        this._setColor(node, this._getColor(repl))
+        this._setColor(repl, topColor)
     }
 
     private fun __swapWithPrev(
         node: NODE,
-        prev: NODE,
-        nodeParent: NODE?,
-        prevParent: NODE
+        parent: NODE?,
+        leftChild: NODE
     ) {
-        this.___swapTopWithSubtree(
-            top = node,
-            subtree = prev,
-            topParent = nodeParent,
-            subtreeParent = prevParent,
-            setParent2Top = { newTop -> this.__setChildSwitch(nodeParent, node, newTop) },
-            setParent2DistantSubtree = { newSubtree -> this._setRightChild(prevParent, newSubtree) },
+        this.___swapWithKeyNeighbour(
+            node = node,
+            nodeParent = parent,
+            nodeForwardChild = leftChild,
+            setParent2Top = { newTop -> this.__setChildSwitch(parent, node, newTop) },
             getForwardChild = this::_getLeftChild,
             setForwardChild = this::_setLeftChild,
             getOppositeChild = this::_getRightChild,
@@ -324,17 +331,14 @@ abstract class AbstractRedBlackTree<NODE : Any> {
 
     private fun __swapWithNext(
         node: NODE,
-        next: NODE,
-        nodeParent: NODE?,
-        nextParent: NODE
+        parent: NODE?,
+        rightChild: NODE
     ) {
-        this.___swapTopWithSubtree(
-            top = node,
-            subtree = next,
-            topParent = nodeParent,
-            subtreeParent = nextParent,
-            setParent2Top = { newTop -> this.__setChildSwitch(nodeParent, node, newTop) },
-            setParent2DistantSubtree = { newSubtree -> this._setLeftChild(nextParent, newSubtree) },
+        this.___swapWithKeyNeighbour(
+            node = node,
+            nodeParent = parent,
+            nodeForwardChild = rightChild,
+            setParent2Top = { newTop -> this.__setChildSwitch(parent, node, newTop) },
             getForwardChild = this::_getRightChild,
             setForwardChild = this::_setRightChild,
             getOppositeChild = this::_getLeftChild,
@@ -369,8 +373,7 @@ abstract class AbstractRedBlackTree<NODE : Any> {
                         return
                     }
 
-                    val next = this.subtreeMin(nodeRightChild)
-                    this.__swapWithNext(node, next, parent, this._getParent(next) ?: TODO())
+                    this.__swapWithNext(node, parent, nodeRightChild)
                     continue
                 }
             } else {
@@ -383,8 +386,7 @@ abstract class AbstractRedBlackTree<NODE : Any> {
                         return
                     }
                 }
-                val prev = this.subtreeMax(nodeLeftChild)
-                this.__swapWithPrev(node, prev, parent, this._getParent(prev) ?: TODO())
+                this.__swapWithPrev(node, parent, nodeLeftChild)
                 continue
             }
         }
