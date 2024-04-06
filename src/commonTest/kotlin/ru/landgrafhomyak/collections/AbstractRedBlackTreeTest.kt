@@ -146,7 +146,7 @@ internal class AbstractRedBlackTreeTest {
     @Test
     fun testNaturals() {
         val tree = RedBlackTreeTestImpl()
-        (0..1000)
+        (0..10000)
             .onEachIndexed { i, n ->
                 tree.add(n)
                 Unit

@@ -27,6 +27,19 @@ abstract class AbstractRedBlackTree<NODE : Any> {
         }
     }
 
+    private fun __setChildSwitch(parent: NODE?, oldChild: NODE, newChild: NODE?) {
+        when {
+            parent == null -> {
+                oldChild.__assertIsRoot()
+                this.root = newChild
+            }
+
+            this._checkSame(oldChild, this._getLeftChild(parent)) -> this._setLeftChild(parent, newChild)
+            this._checkSame(oldChild, this._getRightChild(parent)) -> this._setRightChild(parent, newChild)
+            else -> this.__throwTreeCorruptedNotChild(oldChild, parent)
+        }
+    }
+
     var root: NODE? = null
 
     @OptIn(ExperimentalContracts::class)
@@ -245,182 +258,88 @@ abstract class AbstractRedBlackTree<NODE : Any> {
         }
     }
 
-    @OptIn(ExperimentalContracts::class)
-    private inline fun ___swapNeighbours(
-        parent: NODE, child: NODE,
-        grandparent: NODE?,
-        setGrandparent2Parent: (NODE) -> Unit,
-        getForwardChild: (NODE) -> NODE?,
+    private inline fun ___swapTopWithSubtree(
+        top: NODE,
+        subtree: NODE,
+        topParent: NODE?,
+        subtreeParent: NODE,
+        setParent2Top: (newTop: NODE) -> Unit,
+        setParent2DistantSubtree: (newSubtree: NODE) -> Unit,
+        getForwardChild: (node: NODE) -> NODE?,
         setForwardChild: (parent: NODE, child: NODE?) -> Unit,
-        getOppositeChild: (NODE) -> NODE?,
+        getOppositeChild: (node: NODE) -> NODE?,
         setOppositeChild: (parent: NODE, child: NODE?) -> Unit
     ) {
-        contract {
-            callsInPlace(setGrandparent2Parent, InvocationKind.EXACTLY_ONCE)
-            callsInPlace(getForwardChild, InvocationKind.AT_LEAST_ONCE)
-            callsInPlace(setForwardChild, InvocationKind.AT_LEAST_ONCE)
-            callsInPlace(getOppositeChild, InvocationKind.AT_LEAST_ONCE)
-            callsInPlace(setOppositeChild, InvocationKind.AT_LEAST_ONCE)
+        if (this._checkSame(top, subtreeParent)) {
+            BinaryTreeUtilities.Swap.swapNeighbours(
+                parent = top,
+                child = subtree,
+                grandparent = topParent,
+                setGrandparent2Parent = setParent2Top,
+                setParent = this::_setParent,
+                getForwardChild = getForwardChild,
+                setForwardChild = setForwardChild,
+                getOppositeChild = getOppositeChild,
+                setOppositeChild = setOppositeChild
+            )
+        } else {
+            BinaryTreeUtilities.Swap.swapDistant(
+                node1 = top,
+                node2 = subtree,
+                node1parent = topParent,
+                node2parent = subtreeParent,
+                setParent2Node1 = setParent2Top,
+                setParent2Node2 = setParent2DistantSubtree,
+                setParent = this::_setParent,
+                getLeftChild = getForwardChild,
+                setLeftChild = setForwardChild,
+                getRightChild = getOppositeChild,
+                setRightChild = setOppositeChild
+            )
         }
-        this._setParent(child, grandparent)
-        setGrandparent2Parent(child)
-        setForwardChild(parent, getForwardChild(child))
-        this._setParent(parent, getOppositeChild(parent))
-        setOppositeChild(parent, getOppositeChild(child))
-        setOppositeChild(child, this._getParent(parent))
-        getOppositeChild(child)?.also { oC -> this._setParent(oC, child) }
-        getOppositeChild(parent)?.also { oC -> this._setParent(oC, parent) }
-        getForwardChild(child)?.also { fC -> this._setParent(fC, parent) }
-        setForwardChild(child, parent)
-        this._setParent(parent, child)
-        val parentColor = this._getColor(parent)
-        this._setColor(parent, this._getColor(child))
-        this._setColor(child, parentColor)
+        val topColor = this._getColor(top)
+        this._setColor(top, this._getColor(subtree))
+        this._setColor(subtree, topColor)
     }
 
-    @OptIn(ExperimentalContracts::class)
-    private inline fun __swapNeighboursLeft(
-        parent: NODE, child: NODE,
-        grandparent: NODE?,
-        setGrandparent2Parent: (NODE) -> Unit
+    private fun __swapWithPrev(
+        node: NODE,
+        prev: NODE,
+        nodeParent: NODE?,
+        prevParent: NODE
     ) {
-        contract {
-            callsInPlace(setGrandparent2Parent, InvocationKind.EXACTLY_ONCE)
-        }
-        this.___swapNeighbours(
-            parent, child,
-            grandparent,
-            setGrandparent2Parent,
-            getForwardChild = { p -> this._getLeftChild(p) },
-            setForwardChild = { p, c -> this._setLeftChild(p, c) },
-            getOppositeChild = { p -> this._getRightChild(p) },
-            setOppositeChild = { p, c -> this._setRightChild(p, c) }
+        this.___swapTopWithSubtree(
+            top = node,
+            subtree = prev,
+            topParent = nodeParent,
+            subtreeParent = prevParent,
+            setParent2Top = { newTop -> this.__setChildSwitch(nodeParent, node, newTop) },
+            setParent2DistantSubtree = { newSubtree -> this._setRightChild(prevParent, newSubtree) },
+            getForwardChild = this::_getLeftChild,
+            setForwardChild = this::_setLeftChild,
+            getOppositeChild = this::_getRightChild,
+            setOppositeChild = this::_setRightChild
         )
     }
 
-    @OptIn(ExperimentalContracts::class)
-    private inline fun __swapNeighboursRight(
-        parent: NODE, child: NODE,
-        grandparent: NODE?,
-        setGrandparent2Parent: (NODE) -> Unit
+    private fun __swapWithNext(
+        node: NODE,
+        next: NODE,
+        nodeParent: NODE?,
+        nextParent: NODE
     ) {
-        contract {
-            callsInPlace(setGrandparent2Parent, InvocationKind.EXACTLY_ONCE)
-        }
-        this.___swapNeighbours(
-            parent, child,
-            grandparent,
-            setGrandparent2Parent,
-            getForwardChild = { p -> this._getRightChild(p) },
-            setForwardChild = { p, c -> this._setRightChild(p, c) },
-            getOppositeChild = { p -> this._getLeftChild(p) },
-            setOppositeChild = { p, c -> this._setLeftChild(p, c) }
+        this.___swapTopWithSubtree(
+            top = node,
+            subtree = next,
+            topParent = nodeParent,
+            subtreeParent = nextParent,
+            setParent2Top = { newTop -> this.__setChildSwitch(nodeParent, node, newTop) },
+            setParent2DistantSubtree = { newSubtree -> this._setLeftChild(nextParent, newSubtree) },
+            getForwardChild = this::_getRightChild,
+            setForwardChild = this::_setRightChild,
+            getOppositeChild = this::_getLeftChild,
+            setOppositeChild = this::_setLeftChild
         )
-    }
-
-    private fun __swapRandom(node1: NODE, parent1: NODE?, left1: NODE?, right1: NODE?, node2: NODE, parent2: NODE?, left2: NODE?, right2: NODE?) {
-        val color1 = this._getColor(node1)
-        val color2 = this._getColor(node2)
-
-        when {
-            parent1 == null -> {
-                node1.__assertIsRoot()
-                this.root = node2
-            }
-
-            this._checkSame(node1, this._getLeftChild(parent1)) -> this._setLeftChild(parent1, node2)
-            this._checkSame(node1, this._getRightChild(parent1)) -> this._setRightChild(parent1, node2)
-            else -> this.__throwTreeCorruptedNotChild(node1, parent1)
-        }
-        when {
-            parent2 == null -> {
-                node2.__assertIsRoot()
-                this.root = node1
-            }
-
-            this._checkSame(node2, this._getLeftChild(parent2)) -> this._setLeftChild(parent2, node1)
-            this._checkSame(node2, this._getRightChild(parent2)) -> this._setRightChild(parent2, node1)
-            else -> this.__throwTreeCorruptedNotChild(node2, parent2)
-        }
-        this._setParent(node2, parent1)
-        this._setParent(node1, parent2)
-
-        this._setLeftChild(node1, left2)
-        this._setLeftChild(node2, left1)
-        if (left2 != null) this._setParent(left2, node1)
-        if (left1 != null) this._setParent(left1, node2)
-
-        this._setRightChild(node1, right2)
-        this._setRightChild(node2, right1)
-        if (right2 != null) this._setParent(right2, node1)
-        if (right1 != null) this._setParent(right1, node2)
-
-        this._setColor(node1, color2)
-        this._setColor(node2, color1)
-    }
-
-    private fun __swapNodes(node1: NODE, node2: NODE) {
-        val left1 = this._getLeftChild(node1)
-        val right1 = this._getRightChild(node1)
-        val parent1 = this._getParent(node1)
-
-        val left2 = this._getLeftChild(node2)
-        val right2 = this._getRightChild(node2)
-        val parent2 = this._getParent(node2)
-
-        when {
-            this._checkSame(node1, left2) ->
-                when {
-                    parent2 == null -> {
-                        node2.__assertIsRoot()
-                        this.__swapNeighboursLeft(node2, node1, null) { c -> this.root = c }
-                    }
-
-                    this._checkSame(node2, this._getLeftChild(parent2)) -> this.__swapNeighboursLeft(node2, node1, parent2) { c -> this._setLeftChild(parent2, c) }
-                    this._checkSame(node2, this._getRightChild(parent2)) -> this.__swapNeighboursLeft(node2, node1, parent2) { c -> this._setRightChild(parent2, c) }
-                    else -> this.__throwTreeCorruptedNotChild(node2, parent2)
-                }
-
-            this._checkSame(node1, right2) ->
-                when {
-                    parent2 == null -> {
-                        node2.__assertIsRoot()
-                        this.__swapNeighboursRight(node2, node1, null) { c -> this.root = c }
-                    }
-
-                    this._checkSame(node2, this._getLeftChild(parent2)) -> this.__swapNeighboursRight(node2, node1, parent2) { c -> this._setLeftChild(parent2, c) }
-                    this._checkSame(node2, this._getRightChild(parent2)) -> this.__swapNeighboursRight(node2, node1, parent2) { c -> this._setRightChild(parent2, c) }
-                    else -> this.__throwTreeCorruptedNotChild(node2, parent2)
-                }
-
-            this._checkSame(node2, left1) ->
-                when {
-                    parent1 == null -> {
-                        node1.__assertIsRoot()
-                        this.__swapNeighboursLeft(node1, node2, null) { c -> this.root = c }
-                    }
-
-                    this._checkSame(node1, this._getLeftChild(parent1)) -> this.__swapNeighboursLeft(node1, node2, parent1) { c -> this._setLeftChild(parent1, c) }
-                    this._checkSame(node1, this._getRightChild(parent1)) -> this.__swapNeighboursLeft(node1, node2, parent1) { c -> this._setRightChild(parent1, c) }
-                    else -> this.__throwTreeCorruptedNotChild(node1, parent1)
-                }
-
-            this._checkSame(node2, right1) ->
-                when {
-                    parent1 == null -> {
-                        node1.__assertIsRoot()
-                        this.__swapNeighboursRight(node1, node2, null) { c -> this.root = c }
-                    }
-
-                    this._checkSame(node1, this._getLeftChild(parent1)) -> this.__swapNeighboursRight(node1, node2, parent1) { c -> this._setLeftChild(parent1, c) }
-                    this._checkSame(node1, this._getRightChild(parent1)) -> this.__swapNeighboursRight(node1, node2, parent1) { c -> this._setRightChild(parent1, c) }
-                    else -> this.__throwTreeCorruptedNotChild(node1, parent1)
-                }
-
-            else -> this.__swapRandom(node1, parent1, left1, right1, node2, parent2, left2, right2)
-        }
-
-
     }
 
     fun unlink(node: NODE) {
@@ -439,11 +358,7 @@ abstract class AbstractRedBlackTree<NODE : Any> {
 
                     if (this._getColor(node) != Color.RED)
                         this.__balanceAfterUnlinking(node, parent)
-                    when {
-                        this._checkSame(node, this._getLeftChild(parent)) -> this._setLeftChild(parent, null)
-                        this._checkSame(node, this._getRightChild(parent)) -> this._setRightChild(parent, null)
-                        else -> this.__throwTreeCorruptedNotChild(node, parent)
-                    }
+                    this.__setChildSwitch(parent, node, null)
                     return
                 } else {
                     if (parent == null) {
@@ -454,8 +369,8 @@ abstract class AbstractRedBlackTree<NODE : Any> {
                         return
                     }
 
-                    val repl = this.subtreeMin(nodeRightChild)
-                    this.__swapNodes(node, repl)
+                    val next = this.subtreeMin(nodeRightChild)
+                    this.__swapWithNext(node, next, parent, this._getParent(next) ?: TODO())
                     continue
                 }
             } else {
@@ -468,8 +383,8 @@ abstract class AbstractRedBlackTree<NODE : Any> {
                         return
                     }
                 }
-                val repl = this.subtreeMax(nodeLeftChild)
-                this.__swapNodes(node, repl)
+                val prev = this.subtreeMax(nodeLeftChild)
+                this.__swapWithPrev(node, prev, parent, this._getParent(prev) ?: TODO())
                 continue
             }
         }
