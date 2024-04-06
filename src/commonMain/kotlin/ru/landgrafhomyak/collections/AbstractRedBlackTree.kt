@@ -550,4 +550,8 @@ abstract class AbstractRedBlackTree<NODE : Any> {
 
     fun maxOrThrow(): NODE = this.maxOrNull() ?: throw NoSuchElementException("Red-black tree is empty")
 
+
+    fun isEmpty(): Boolean = this.root == null
+
+    fun isNotEmpty(): Boolean = this.root != null
 }
