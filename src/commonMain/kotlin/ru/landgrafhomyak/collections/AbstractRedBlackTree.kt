@@ -1,12 +1,9 @@
-@file:JvmName("AbstractRedBlackTreeKt")
-
-package ru.landgrafhomyak.utility
+package ru.landgrafhomyak.collections
 
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 import kotlin.jvm.JvmField
-import kotlin.jvm.JvmName
 import kotlin.jvm.JvmStatic
 
 @Suppress("FunctionName", "MemberVisibilityCanBePrivate")

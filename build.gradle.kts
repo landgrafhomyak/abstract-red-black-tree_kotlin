@@ -3,11 +3,12 @@ plugins {
     `maven-publish`
 }
 
-group = "ru.landgrafhomyak.utility"
+group = "ru.landgrafhomyak.collections"
 version = "1.0"
 
 repositories {
     mavenCentral()
+    maven("https://maven.landgrafhomyak.ru/")
 }
 
 

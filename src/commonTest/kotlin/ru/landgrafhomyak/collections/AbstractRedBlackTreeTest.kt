@@ -1,4 +1,4 @@
-package ru.landgrafhomyak.utility
+package ru.landgrafhomyak.collections
 
 import kotlin.test.Test
 import kotlin.test.assertFalse
