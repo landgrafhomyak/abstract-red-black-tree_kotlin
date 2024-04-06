@@ -1,0 +1,18 @@
+name: Library building
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+jobs:
+  build-lib:
+    runs-on: macos-latest
+    steps:
+      - uses: landgrafhomyak/maven2github-redirector/build-mp-lib@actions-v1.0
+        with:
+          group: ru.landgrafhomyak.collections
+          name: abstract-red-black-tree
+          version: "1.0"
