@@ -6,8 +6,13 @@ import kotlin.contracts.contract
 import kotlin.jvm.JvmField
 import kotlin.jvm.JvmStatic
 
-@Suppress("FunctionName", "MemberVisibilityCanBePrivate")
+@Suppress("FunctionName", "MemberVisibilityCanBePrivate", "PropertyName")
 abstract class AbstractRedBlackTree<NODE : Any> {
+    val PARENT_INITIALIZER: NODE? get() = null
+    val LEFT_CHILD_INITIALIZER: NODE? get() = null
+    val RIGHT_CHILD_INITIALIZER: NODE? get() = null
+    val COLOR_INITIALIZER: Color get() = Color.RED
+
     protected abstract fun _getParent(node: NODE): NODE?
     protected abstract fun _setParent(node: NODE, parent: NODE?)
     protected abstract fun _getLeftChild(node: NODE): NODE?
@@ -544,4 +549,5 @@ abstract class AbstractRedBlackTree<NODE : Any> {
     fun minOrThrow(): NODE = this.minOrNull() ?: throw NoSuchElementException("Red-black tree is empty")
 
     fun maxOrThrow(): NODE = this.maxOrNull() ?: throw NoSuchElementException("Red-black tree is empty")
+
 }
