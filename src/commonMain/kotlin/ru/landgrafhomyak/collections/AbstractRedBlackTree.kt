@@ -258,6 +258,12 @@ abstract class AbstractRedBlackTree<NODE : Any> {
         }
     }
 
+    private fun ___swapColors(nod1: NODE, node2: NODE) {
+        val color = this._getColor(nod1)
+        this._setColor(nod1, this._getColor(node2))
+        this._setColor(node2, color)
+    }
+
     private inline fun ___swapWithKeyNeighbour(
         node: NODE,
         nodeParent: NODE?,
@@ -307,12 +313,10 @@ abstract class AbstractRedBlackTree<NODE : Any> {
                 setRightChild = setOppositeChild
             )
         }
-        val topColor = this._getColor(node)
-        this._setColor(node, this._getColor(repl))
-        this._setColor(repl, topColor)
+        this.___swapColors(node, repl)
     }
 
-    private fun __swapWithPrev(
+    private fun __swapWithPrevKey(
         node: NODE,
         parent: NODE?,
         leftChild: NODE
@@ -329,7 +333,8 @@ abstract class AbstractRedBlackTree<NODE : Any> {
         )
     }
 
-    private fun __swapWithNext(
+
+    private fun __swapWithNextKey(
         node: NODE,
         parent: NODE?,
         rightChild: NODE
@@ -365,28 +370,19 @@ abstract class AbstractRedBlackTree<NODE : Any> {
                     this.__setChildSwitch(parent, node, null)
                     return
                 } else {
-                    if (parent == null) {
-                        node.__assertIsRoot()
-                        this.root = nodeRightChild
-                        this._setParent(nodeRightChild, null)
-                        this._setColor(nodeRightChild, Color.BLACK)
-                        return
-                    }
-
-                    this.__swapWithNext(node, parent, nodeRightChild)
-                    continue
+                    this.__setChildSwitch(parent, node, nodeRightChild)
+                    this._setParent(nodeRightChild, parent)
+                    this._setColor(nodeRightChild, Color.BLACK)
+                    return
                 }
             } else {
                 if (nodeRightChild == null) {
-                    if (parent == null) {
-                        node.__assertIsRoot()
-                        this.root = nodeLeftChild
-                        this._setParent(nodeLeftChild, null)
-                        this._setColor(nodeLeftChild, Color.BLACK)
-                        return
-                    }
+                    this.__setChildSwitch(parent, node, nodeLeftChild)
+                    this._setParent(nodeLeftChild, parent)
+                    this._setColor(nodeLeftChild, Color.BLACK)
+                    return
                 }
-                this.__swapWithPrev(node, parent, nodeLeftChild)
+                this.__swapWithPrevKey(node, parent, nodeLeftChild)
                 continue
             }
         }
