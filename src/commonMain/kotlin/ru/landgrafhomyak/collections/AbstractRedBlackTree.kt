@@ -63,21 +63,19 @@ abstract class AbstractRedBlackTree<NODE : Any> {
         this._setParent(top, node)
     }
 
-    private fun __rotateLeft_Root(top: NODE) =
-        this.___rotateLeft(top) { newRoot -> this.root = newRoot }
+    /*
+        private fun __rotateLeft_Root(top: NODE) =
+            this.___rotateLeft(top) { newRoot -> this.root = newRoot }
+
+        private fun __rotateLeft_Right(top: NODE, parent: NODE) =
+            this.___rotateLeft(top) { newChild -> this._setRightChild(parent, newChild) }
+    */
 
     private fun __rotateLeft_Left(top: NODE, parent: NODE) =
         this.___rotateLeft(top) { newChild -> this._setLeftChild(parent, newChild) }
 
-    private fun __rotateLeft_Right(top: NODE, parent: NODE) =
-        this.___rotateLeft(top) { newChild -> this._setRightChild(parent, newChild) }
-
-    private fun __rotateLeft_Switch(top: NODE, parent: NODE?) = when {
-        parent == null -> this.__rotateLeft_Root(top.__assertIsRoot())
-        this._checkSame(top, this._getLeftChild(parent)) -> this.__rotateLeft_Left(top, parent)
-        this._checkSame(top, this._getRightChild(parent)) -> this.__rotateLeft_Right(top, parent)
-        else -> this.__throwTreeCorruptedNotChild(top, parent)
-    }
+    private fun __rotateLeft_Switch(top: NODE, parent: NODE?) =
+        this.___rotateLeft(top) { newChild -> this.__setChildSwitch(parent, top, newChild) }
 
     private fun __rotateLeft_Switch(top: NODE) =
         this.__rotateLeft_Switch(top, this._getParent(top))
@@ -103,22 +101,19 @@ abstract class AbstractRedBlackTree<NODE : Any> {
         this._setParent(top, node)
     }
 
-    private fun __rotateRight_Root(top: NODE) =
-        this.___rotateRight(top) { newRoot -> this.root = newRoot }
+    /*
+        private fun __rotateRight_Root(top: NODE) =
+            this.___rotateRight(top) { newRoot -> this.root = newRoot }
 
-    private fun __rotateRight_Left(top: NODE, parent: NODE) =
-        this.___rotateRight(top) { newChild -> this._setLeftChild(parent, newChild) }
+        private fun __rotateRight_Left(top: NODE, parent: NODE) =
+            this.___rotateRight(top) { newChild -> this._setLeftChild(parent, newChild) }
+    */
 
     private fun __rotateRight_Right(top: NODE, parent: NODE) =
         this.___rotateRight(top) { newChild -> this._setRightChild(parent, newChild) }
 
-
-    private fun __rotateRight_Switch(top: NODE, parent: NODE?) = when {
-        parent == null -> this.__rotateRight_Root(top.__assertIsRoot())
-        this._checkSame(top, this._getLeftChild(parent)) -> this.__rotateRight_Left(top, parent)
-        this._checkSame(top, this._getRightChild(parent)) -> this.__rotateRight_Right(top, parent)
-        else -> this.__throwTreeCorruptedNotChild(top, parent)
-    }
+    private fun __rotateRight_Switch(top: NODE, parent: NODE?) =
+        this.___rotateRight(top) { newChild -> this.__setChildSwitch(parent, top, newChild) }
 
     private fun __rotateRight_Switch(top: NODE) =
         this.__rotateRight_Switch(top, this._getParent(top))
@@ -264,6 +259,7 @@ abstract class AbstractRedBlackTree<NODE : Any> {
         this._setColor(node2, color)
     }
 
+    @OptIn(ExperimentalContracts::class)
     private inline fun ___swapWithKeyNeighbour(
         node: NODE,
         nodeParent: NODE?,
@@ -274,6 +270,14 @@ abstract class AbstractRedBlackTree<NODE : Any> {
         getOppositeChild: (node: NODE) -> NODE?,
         setOppositeChild: (parent: NODE, child: NODE?) -> Unit
     ) {
+        contract {
+            callsInPlace(setParent2Top, InvocationKind.EXACTLY_ONCE)
+            callsInPlace(getForwardChild, InvocationKind.AT_LEAST_ONCE)
+            callsInPlace(setForwardChild, InvocationKind.AT_LEAST_ONCE)
+            callsInPlace(getOppositeChild, InvocationKind.AT_LEAST_ONCE)
+            callsInPlace(setOppositeChild, InvocationKind.AT_LEAST_ONCE)
+        }
+
         var repl = getOppositeChild(nodeForwardChild)
         if (repl == null) {
             BinaryTreeUtilities.Swap.swapNeighbours(
@@ -333,23 +337,24 @@ abstract class AbstractRedBlackTree<NODE : Any> {
         )
     }
 
-
-    private fun __swapWithNextKey(
-        node: NODE,
-        parent: NODE?,
-        rightChild: NODE
-    ) {
-        this.___swapWithKeyNeighbour(
-            node = node,
-            nodeParent = parent,
-            nodeForwardChild = rightChild,
-            setParent2Top = { newTop -> this.__setChildSwitch(parent, node, newTop) },
-            getForwardChild = this::_getRightChild,
-            setForwardChild = this::_setRightChild,
-            getOppositeChild = this::_getLeftChild,
-            setOppositeChild = this::_setLeftChild
-        )
-    }
+    /*
+        private fun __swapWithNextKey(
+            node: NODE,
+            parent: NODE?,
+            rightChild: NODE
+        ) {
+            this.___swapWithKeyNeighbour(
+                node = node,
+                nodeParent = parent,
+                nodeForwardChild = rightChild,
+                setParent2Top = { newTop -> this.__setChildSwitch(parent, node, newTop) },
+                getForwardChild = this::_getRightChild,
+                setForwardChild = this::_setRightChild,
+                getOppositeChild = this::_getLeftChild,
+                setOppositeChild = this::_setLeftChild
+            )
+        }
+    */
 
     fun unlink(node: NODE) {
         while (true) {
@@ -381,9 +386,10 @@ abstract class AbstractRedBlackTree<NODE : Any> {
                     this._setParent(nodeLeftChild, parent)
                     this._setColor(nodeLeftChild, Color.BLACK)
                     return
+                } else {
+                    this.__swapWithPrevKey(node, parent, nodeLeftChild)
+                    continue
                 }
-                this.__swapWithPrevKey(node, parent, nodeLeftChild)
-                continue
             }
         }
     }
