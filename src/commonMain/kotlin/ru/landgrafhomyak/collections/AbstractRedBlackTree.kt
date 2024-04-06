@@ -538,7 +538,7 @@ abstract class AbstractRedBlackTree<NODE : Any> {
     }
 
     fun maxOrNull(): NODE? {
-        return this.subtreeMin(this.root ?: return null)
+        return this.subtreeMax(this.root ?: return null)
     }
 
     fun minOrThrow(): NODE = this.minOrNull() ?: throw NoSuchElementException("Red-black tree is empty")
