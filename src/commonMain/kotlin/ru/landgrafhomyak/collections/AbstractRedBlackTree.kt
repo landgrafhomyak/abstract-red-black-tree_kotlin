@@ -554,4 +554,8 @@ abstract class AbstractRedBlackTree<NODE : Any> {
     fun isEmpty(): Boolean = this.root == null
 
     fun isNotEmpty(): Boolean = this.root != null
+
+    fun clear() {
+        this.root = null
+    }
 }
