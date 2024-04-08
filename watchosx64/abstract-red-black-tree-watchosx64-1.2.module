@@ -1,0 +1,115 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "url": "../../abstract-red-black-tree/1.2/abstract-red-black-tree-1.2.module",
+    "group": "ru.landgrafhomyak.collections",
+    "module": "abstract-red-black-tree",
+    "version": "1.2",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.7"
+    }
+  },
+  "variants": [
+    {
+      "name": "watchosX64ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "watchos_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-common",
+          "version": {
+            "requires": "1.9.0"
+          }
+        },
+        {
+          "group": "ru.landgrafhomyak.collections",
+          "module": "binary-tree-utilities",
+          "version": {
+            "requires": "1.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "abstract-red-black-tree.klib",
+          "url": "abstract-red-black-tree-watchosx64-1.2.klib",
+          "size": 26919,
+          "sha512": "925d2706582726bad09a5d24dcbcf9ca2ec867754d34ac68c84a4ccd75e5e2fbc74d8df8dac82bbb036fdcc443b493cbe21636bacefc6920ffa95cdadf4c39fc",
+          "sha256": "df1b9422bd2c5e6d2828f368843a83a590cadc68dc7454e58c134e83d8611284",
+          "sha1": "9728ae05b57c66599febb87422ac2d380bccccc1",
+          "md5": "00152ff1bf5b1bb26e1ca806e1c12472"
+        }
+      ]
+    },
+    {
+      "name": "watchosX64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "watchos_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "files": [
+        {
+          "name": "abstract-red-black-tree-watchosx64-1.2-sources.jar",
+          "url": "abstract-red-black-tree-watchosx64-1.2-sources.jar",
+          "size": 4823,
+          "sha512": "cf1734eb4787029f53e23b0f7261616f23a0584046dc42a374199bc50f39529c942dad3a6a99429b93505be4458781f314984e56c721eb5470f5b74678443682",
+          "sha256": "9a5630ef3967e53bdeb55b0154e90b43e4648b2512d6ca3b436da6ad51c0a610",
+          "sha1": "db5cf06ebd8522159cdc844c18cd29171799346b",
+          "md5": "dccf83627cf0e4ac1692c3b7f9906475"
+        }
+      ]
+    },
+    {
+      "name": "watchosX64MetadataElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-metadata",
+        "org.jetbrains.kotlin.native.target": "watchos_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-common",
+          "version": {
+            "requires": "1.9.0"
+          }
+        },
+        {
+          "group": "ru.landgrafhomyak.collections",
+          "module": "binary-tree-utilities",
+          "version": {
+            "requires": "1.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "abstract-red-black-tree-watchosx64-1.2-metadata.jar",
+          "url": "abstract-red-black-tree-watchosx64-1.2-metadata.jar",
+          "size": 261,
+          "sha512": "3af152b2d743f5aefbf5d2e79c66ae984af9c26cdd77ecd6c1f9fcf9888563a691901c1cbfc57216bbac7e26825cf27cc21868e943eda94a1d433fd1502fe7f9",
+          "sha256": "d67e8cc86c0e5170c1aa654c7d8b62213b684b7a9176df645f4e08ab923b1844",
+          "sha1": "24792f160bab18ad46b5c4682a9b4eed1a13a159",
+          "md5": "28f48cf2ca6dc198bb5bcd59d853cf8f"
+        }
+      ]
+    }
+  ]
+}

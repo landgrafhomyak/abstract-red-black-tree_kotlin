@@ -1,0 +1,78 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "url": "../../abstract-red-black-tree/1.2/abstract-red-black-tree-1.2.module",
+    "group": "ru.landgrafhomyak.collections",
+    "module": "abstract-red-black-tree",
+    "version": "1.2",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.7"
+    }
+  },
+  "variants": [
+    {
+      "name": "linuxArm64ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "linux_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-common",
+          "version": {
+            "requires": "1.9.0"
+          }
+        },
+        {
+          "group": "ru.landgrafhomyak.collections",
+          "module": "binary-tree-utilities",
+          "version": {
+            "requires": "1.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "abstract-red-black-tree.klib",
+          "url": "abstract-red-black-tree-linuxarm64-1.2.klib",
+          "size": 26917,
+          "sha512": "e38ea9d80ad1a12166373afc1a342f810498cb881a22845fa71066712683bc91510ae25f58d1b0d9230841f9c8cee72828b5a10c54a6f9b2c0e02ca6add0e885",
+          "sha256": "ef58e972f2ff61cce9f5541a592f4983dc00766ce12736ae8c8dc07be3770fa7",
+          "sha1": "37cade84c9bd5e74511160e754c9a3ec6ae3676b",
+          "md5": "d2ad47947532db8207834a4570592963"
+        }
+      ]
+    },
+    {
+      "name": "linuxArm64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "linux_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "files": [
+        {
+          "name": "abstract-red-black-tree-linuxarm64-1.2-sources.jar",
+          "url": "abstract-red-black-tree-linuxarm64-1.2-sources.jar",
+          "size": 4823,
+          "sha512": "cf1734eb4787029f53e23b0f7261616f23a0584046dc42a374199bc50f39529c942dad3a6a99429b93505be4458781f314984e56c721eb5470f5b74678443682",
+          "sha256": "9a5630ef3967e53bdeb55b0154e90b43e4648b2512d6ca3b436da6ad51c0a610",
+          "sha1": "db5cf06ebd8522159cdc844c18cd29171799346b",
+          "md5": "dccf83627cf0e4ac1692c3b7f9906475"
+        }
+      ]
+    }
+  ]
+}

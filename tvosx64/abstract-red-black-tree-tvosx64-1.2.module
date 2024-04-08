@@ -1,0 +1,115 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "url": "../../abstract-red-black-tree/1.2/abstract-red-black-tree-1.2.module",
+    "group": "ru.landgrafhomyak.collections",
+    "module": "abstract-red-black-tree",
+    "version": "1.2",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.7"
+    }
+  },
+  "variants": [
+    {
+      "name": "tvosX64ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "tvos_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-common",
+          "version": {
+            "requires": "1.9.0"
+          }
+        },
+        {
+          "group": "ru.landgrafhomyak.collections",
+          "module": "binary-tree-utilities",
+          "version": {
+            "requires": "1.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "abstract-red-black-tree.klib",
+          "url": "abstract-red-black-tree-tvosx64-1.2.klib",
+          "size": 26893,
+          "sha512": "7828016536dafe9c3d36ac8601b1514580d6f7c186986176662a2780fd8b3acf9f33ed35197499d9b701c859106939c526a9eaa293425aade77d743f886e24c7",
+          "sha256": "1b217e93ef7d028ef2adb8a63b0e0b30de648f00aacf598a4e685ca623169f38",
+          "sha1": "08b64746b7bb7c76388efd5050b95845ca1c06e9",
+          "md5": "ed1cbef61136aa71aa2b4afd821a65fe"
+        }
+      ]
+    },
+    {
+      "name": "tvosX64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "tvos_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "files": [
+        {
+          "name": "abstract-red-black-tree-tvosx64-1.2-sources.jar",
+          "url": "abstract-red-black-tree-tvosx64-1.2-sources.jar",
+          "size": 4823,
+          "sha512": "cf1734eb4787029f53e23b0f7261616f23a0584046dc42a374199bc50f39529c942dad3a6a99429b93505be4458781f314984e56c721eb5470f5b74678443682",
+          "sha256": "9a5630ef3967e53bdeb55b0154e90b43e4648b2512d6ca3b436da6ad51c0a610",
+          "sha1": "db5cf06ebd8522159cdc844c18cd29171799346b",
+          "md5": "dccf83627cf0e4ac1692c3b7f9906475"
+        }
+      ]
+    },
+    {
+      "name": "tvosX64MetadataElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-metadata",
+        "org.jetbrains.kotlin.native.target": "tvos_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-common",
+          "version": {
+            "requires": "1.9.0"
+          }
+        },
+        {
+          "group": "ru.landgrafhomyak.collections",
+          "module": "binary-tree-utilities",
+          "version": {
+            "requires": "1.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "abstract-red-black-tree-tvosx64-1.2-metadata.jar",
+          "url": "abstract-red-black-tree-tvosx64-1.2-metadata.jar",
+          "size": 261,
+          "sha512": "6ad9f7087e1da00c168bc60bf84a969bb44888cb65e1bcec217fdca18b8b5184153bb0803ba68c985a90f360cfc4844d6b3d02308b3c0b0290bf6c2074630685",
+          "sha256": "7a3f97296ba1a8e735956728650049f16f7c3aa4a0670110049b5084a50ba9b7",
+          "sha1": "44dd4d3f541cc20664f2acfadf2b05bf65f34a32",
+          "md5": "bd5f348ff256e8b2cb44807e53db6c46"
+        }
+      ]
+    }
+  ]
+}

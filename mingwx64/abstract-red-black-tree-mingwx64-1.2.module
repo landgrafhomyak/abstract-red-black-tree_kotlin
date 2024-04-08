@@ -1,0 +1,78 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "url": "../../abstract-red-black-tree/1.2/abstract-red-black-tree-1.2.module",
+    "group": "ru.landgrafhomyak.collections",
+    "module": "abstract-red-black-tree",
+    "version": "1.2",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.7"
+    }
+  },
+  "variants": [
+    {
+      "name": "mingwX64ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "mingw_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-common",
+          "version": {
+            "requires": "1.9.0"
+          }
+        },
+        {
+          "group": "ru.landgrafhomyak.collections",
+          "module": "binary-tree-utilities",
+          "version": {
+            "requires": "1.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "abstract-red-black-tree.klib",
+          "url": "abstract-red-black-tree-mingwx64-1.2.klib",
+          "size": 26902,
+          "sha512": "38087b3dac7870f330b5695c2f613ec0715de16b6803a3e89a23b9683b49b275315bd325acf5efcc91565f6963cc752bfb54fae72fd189f49f4bac23ce8600b6",
+          "sha256": "ca8c719756fa94c3e228b6778e06b2a25b75b95e5536bd3f072d8eb714de31f9",
+          "sha1": "dca87c33db8cedf1c2fd37a5f036dbfab725fc6a",
+          "md5": "4efa6cfe0f608f55d50615049de0fbb4"
+        }
+      ]
+    },
+    {
+      "name": "mingwX64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "mingw_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "files": [
+        {
+          "name": "abstract-red-black-tree-mingwx64-1.2-sources.jar",
+          "url": "abstract-red-black-tree-mingwx64-1.2-sources.jar",
+          "size": 4823,
+          "sha512": "cf1734eb4787029f53e23b0f7261616f23a0584046dc42a374199bc50f39529c942dad3a6a99429b93505be4458781f314984e56c721eb5470f5b74678443682",
+          "sha256": "9a5630ef3967e53bdeb55b0154e90b43e4648b2512d6ca3b436da6ad51c0a610",
+          "sha1": "db5cf06ebd8522159cdc844c18cd29171799346b",
+          "md5": "dccf83627cf0e4ac1692c3b7f9906475"
+        }
+      ]
+    }
+  ]
+}

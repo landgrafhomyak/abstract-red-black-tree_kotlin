@@ -1,0 +1,115 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "url": "../../abstract-red-black-tree/1.2/abstract-red-black-tree-1.2.module",
+    "group": "ru.landgrafhomyak.collections",
+    "module": "abstract-red-black-tree",
+    "version": "1.2",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.7"
+    }
+  },
+  "variants": [
+    {
+      "name": "iosSimulatorArm64ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "ios_simulator_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-common",
+          "version": {
+            "requires": "1.9.0"
+          }
+        },
+        {
+          "group": "ru.landgrafhomyak.collections",
+          "module": "binary-tree-utilities",
+          "version": {
+            "requires": "1.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "abstract-red-black-tree.klib",
+          "url": "abstract-red-black-tree-iossimulatorarm64-1.2.klib",
+          "size": 26987,
+          "sha512": "4d24337d52103f9f5b3c26ffb684e27fa4f75e8f3ab9905818f1ae08d9df640079ea49e3fedac9dd7b2498e5fa4de92f2a1d5ebeabcd77138aeb45a8d776c4a7",
+          "sha256": "9c0842d995a684d0665fc01e6e01f6f0a779e01db1199856ad56569aa17feab5",
+          "sha1": "a303619efaf540b093bdb3aa229b42b02bb59fd6",
+          "md5": "ea077407c079052fa26ebb134a785bdd"
+        }
+      ]
+    },
+    {
+      "name": "iosSimulatorArm64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "ios_simulator_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "files": [
+        {
+          "name": "abstract-red-black-tree-iossimulatorarm64-1.2-sources.jar",
+          "url": "abstract-red-black-tree-iossimulatorarm64-1.2-sources.jar",
+          "size": 4823,
+          "sha512": "cf1734eb4787029f53e23b0f7261616f23a0584046dc42a374199bc50f39529c942dad3a6a99429b93505be4458781f314984e56c721eb5470f5b74678443682",
+          "sha256": "9a5630ef3967e53bdeb55b0154e90b43e4648b2512d6ca3b436da6ad51c0a610",
+          "sha1": "db5cf06ebd8522159cdc844c18cd29171799346b",
+          "md5": "dccf83627cf0e4ac1692c3b7f9906475"
+        }
+      ]
+    },
+    {
+      "name": "iosSimulatorArm64MetadataElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-metadata",
+        "org.jetbrains.kotlin.native.target": "ios_simulator_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-common",
+          "version": {
+            "requires": "1.9.0"
+          }
+        },
+        {
+          "group": "ru.landgrafhomyak.collections",
+          "module": "binary-tree-utilities",
+          "version": {
+            "requires": "1.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "abstract-red-black-tree-iossimulatorarm64-1.2-metadata.jar",
+          "url": "abstract-red-black-tree-iossimulatorarm64-1.2-metadata.jar",
+          "size": 261,
+          "sha512": "6c0947f0e66bc6f14d4e228e5c2b65af189479c01415be9e732363d219f9d345d24ced46fc790e9935971d2bf31131a8a2642554193ba4cd8476b626948e72e0",
+          "sha256": "98035a4c1305c16dd13ddacee02a6d85bb980c0b7b8e3ab854a509cd6c72db2e",
+          "sha1": "6bcdf01c093876ac22a75c1ad0a641076cab0d4c",
+          "md5": "1bdecf67e0fb0cbab0ac3bf5000b238c"
+        }
+      ]
+    }
+  ]
+}

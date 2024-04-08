@@ -1,0 +1,889 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "ru.landgrafhomyak.collections",
+    "module": "abstract-red-black-tree",
+    "version": "1.2",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.7"
+    }
+  },
+  "variants": [
+    {
+      "name": "metadataApiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-metadata",
+        "org.jetbrains.kotlin.platform.type": "common"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-common",
+          "version": {
+            "requires": "1.9.0"
+          }
+        },
+        {
+          "group": "ru.landgrafhomyak.collections",
+          "module": "binary-tree-utilities",
+          "version": {
+            "requires": "1.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "abstract-red-black-tree-metadata-1.2.jar",
+          "url": "abstract-red-black-tree-1.2.jar",
+          "size": 5119,
+          "sha512": "eb9ec87637d862f5d0df66054e73e5e4686b4c4c2045196ef8fa3456b986d64d25ab28160131453b8466929c4e6b23124e299fb9098c605d94fccf9004bfd292",
+          "sha256": "dc74ab7f0f30c5d2897409f7f4f3baf06ad4b99206923501f50848d7660afded",
+          "sha1": "bd3cb0b6c4c22104e815f4d42c5d75abee1e3a17",
+          "md5": "f88cb4908c900b00bb22a7b42ed1724d"
+        }
+      ]
+    },
+    {
+      "name": "metadataSourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.platform.type": "common"
+      },
+      "files": [
+        {
+          "name": "abstract-red-black-tree-kotlin-1.2-sources.jar",
+          "url": "abstract-red-black-tree-1.2-sources.jar",
+          "size": 4823,
+          "sha512": "cf1734eb4787029f53e23b0f7261616f23a0584046dc42a374199bc50f39529c942dad3a6a99429b93505be4458781f314984e56c721eb5470f5b74678443682",
+          "sha256": "9a5630ef3967e53bdeb55b0154e90b43e4648b2512d6ca3b436da6ad51c0a610",
+          "sha1": "db5cf06ebd8522159cdc844c18cd29171799346b",
+          "md5": "dccf83627cf0e4ac1692c3b7f9906475"
+        }
+      ]
+    },
+    {
+      "name": "androidNativeArm32ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "android_arm32",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-androidnativearm32/1.2/abstract-red-black-tree-androidnativearm32-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-androidnativearm32",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "androidNativeArm32SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "android_arm32",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-androidnativearm32/1.2/abstract-red-black-tree-androidnativearm32-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-androidnativearm32",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "androidNativeArm64ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "android_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-androidnativearm64/1.2/abstract-red-black-tree-androidnativearm64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-androidnativearm64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "androidNativeArm64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "android_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-androidnativearm64/1.2/abstract-red-black-tree-androidnativearm64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-androidnativearm64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "androidNativeX64ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "android_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-androidnativex64/1.2/abstract-red-black-tree-androidnativex64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-androidnativex64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "androidNativeX64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "android_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-androidnativex64/1.2/abstract-red-black-tree-androidnativex64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-androidnativex64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "androidNativeX86ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "android_x86",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-androidnativex86/1.2/abstract-red-black-tree-androidnativex86-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-androidnativex86",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "androidNativeX86SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "android_x86",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-androidnativex86/1.2/abstract-red-black-tree-androidnativex86-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-androidnativex86",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "iosArm64ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "ios_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-iosarm64/1.2/abstract-red-black-tree-iosarm64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-iosarm64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "iosArm64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "ios_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-iosarm64/1.2/abstract-red-black-tree-iosarm64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-iosarm64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "iosArm64MetadataElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-metadata",
+        "org.jetbrains.kotlin.native.target": "ios_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-iosarm64/1.2/abstract-red-black-tree-iosarm64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-iosarm64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "iosSimulatorArm64ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "ios_simulator_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-iossimulatorarm64/1.2/abstract-red-black-tree-iossimulatorarm64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-iossimulatorarm64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "iosSimulatorArm64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "ios_simulator_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-iossimulatorarm64/1.2/abstract-red-black-tree-iossimulatorarm64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-iossimulatorarm64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "iosSimulatorArm64MetadataElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-metadata",
+        "org.jetbrains.kotlin.native.target": "ios_simulator_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-iossimulatorarm64/1.2/abstract-red-black-tree-iossimulatorarm64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-iossimulatorarm64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "iosX64ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "ios_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-iosx64/1.2/abstract-red-black-tree-iosx64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-iosx64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "iosX64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "ios_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-iosx64/1.2/abstract-red-black-tree-iosx64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-iosx64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "iosX64MetadataElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-metadata",
+        "org.jetbrains.kotlin.native.target": "ios_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-iosx64/1.2/abstract-red-black-tree-iosx64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-iosx64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "jsApiElements-published",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.js.compiler": "ir",
+        "org.jetbrains.kotlin.platform.type": "js"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-js/1.2/abstract-red-black-tree-js-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-js",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "jsRuntimeElements-published",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.js.compiler": "ir",
+        "org.jetbrains.kotlin.platform.type": "js"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-js/1.2/abstract-red-black-tree-js-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-js",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "jsSourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.js.compiler": "ir",
+        "org.jetbrains.kotlin.platform.type": "js"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-js/1.2/abstract-red-black-tree-js-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-js",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "jvmApiElements-published",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-jvm/1.2/abstract-red-black-tree-jvm-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-jvm",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "jvmRuntimeElements-published",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-jvm/1.2/abstract-red-black-tree-jvm-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-jvm",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "jvmSourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-jvm/1.2/abstract-red-black-tree-jvm-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-jvm",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "linuxArm64ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "linux_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-linuxarm64/1.2/abstract-red-black-tree-linuxarm64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-linuxarm64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "linuxArm64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "linux_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-linuxarm64/1.2/abstract-red-black-tree-linuxarm64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-linuxarm64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "linuxX64ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "linux_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-linuxx64/1.2/abstract-red-black-tree-linuxx64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-linuxx64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "linuxX64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "linux_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-linuxx64/1.2/abstract-red-black-tree-linuxx64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-linuxx64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "macosArm64ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "macos_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-macosarm64/1.2/abstract-red-black-tree-macosarm64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-macosarm64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "macosArm64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "macos_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-macosarm64/1.2/abstract-red-black-tree-macosarm64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-macosarm64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "macosArm64MetadataElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-metadata",
+        "org.jetbrains.kotlin.native.target": "macos_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-macosarm64/1.2/abstract-red-black-tree-macosarm64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-macosarm64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "macosX64ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "macos_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-macosx64/1.2/abstract-red-black-tree-macosx64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-macosx64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "macosX64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "macos_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-macosx64/1.2/abstract-red-black-tree-macosx64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-macosx64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "macosX64MetadataElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-metadata",
+        "org.jetbrains.kotlin.native.target": "macos_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-macosx64/1.2/abstract-red-black-tree-macosx64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-macosx64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "mingwX64ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "mingw_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-mingwx64/1.2/abstract-red-black-tree-mingwx64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-mingwx64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "mingwX64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "mingw_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-mingwx64/1.2/abstract-red-black-tree-mingwx64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-mingwx64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "tvosArm64ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "tvos_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-tvosarm64/1.2/abstract-red-black-tree-tvosarm64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-tvosarm64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "tvosArm64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "tvos_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-tvosarm64/1.2/abstract-red-black-tree-tvosarm64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-tvosarm64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "tvosArm64MetadataElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-metadata",
+        "org.jetbrains.kotlin.native.target": "tvos_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-tvosarm64/1.2/abstract-red-black-tree-tvosarm64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-tvosarm64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "tvosX64ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "tvos_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-tvosx64/1.2/abstract-red-black-tree-tvosx64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-tvosx64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "tvosX64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "tvos_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-tvosx64/1.2/abstract-red-black-tree-tvosx64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-tvosx64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "tvosX64MetadataElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-metadata",
+        "org.jetbrains.kotlin.native.target": "tvos_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-tvosx64/1.2/abstract-red-black-tree-tvosx64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-tvosx64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "watchosArm32ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "watchos_arm32",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-watchosarm32/1.2/abstract-red-black-tree-watchosarm32-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-watchosarm32",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "watchosArm32SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "watchos_arm32",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-watchosarm32/1.2/abstract-red-black-tree-watchosarm32-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-watchosarm32",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "watchosArm32MetadataElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-metadata",
+        "org.jetbrains.kotlin.native.target": "watchos_arm32",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-watchosarm32/1.2/abstract-red-black-tree-watchosarm32-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-watchosarm32",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "watchosArm64ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "watchos_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-watchosarm64/1.2/abstract-red-black-tree-watchosarm64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-watchosarm64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "watchosArm64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "watchos_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-watchosarm64/1.2/abstract-red-black-tree-watchosarm64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-watchosarm64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "watchosArm64MetadataElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-metadata",
+        "org.jetbrains.kotlin.native.target": "watchos_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-watchosarm64/1.2/abstract-red-black-tree-watchosarm64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-watchosarm64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "watchosX64ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "watchos_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-watchosx64/1.2/abstract-red-black-tree-watchosx64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-watchosx64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "watchosX64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "watchos_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-watchosx64/1.2/abstract-red-black-tree-watchosx64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-watchosx64",
+        "version": "1.2"
+      }
+    },
+    {
+      "name": "watchosX64MetadataElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-metadata",
+        "org.jetbrains.kotlin.native.target": "watchos_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../abstract-red-black-tree-watchosx64/1.2/abstract-red-black-tree-watchosx64-1.2.module",
+        "group": "ru.landgrafhomyak.collections",
+        "module": "abstract-red-black-tree-watchosx64",
+        "version": "1.2"
+      }
+    }
+  ]
+}
