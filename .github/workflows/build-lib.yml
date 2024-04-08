@@ -15,4 +15,4 @@ jobs:
         with:
           group: ru.landgrafhomyak.collections
           name: abstract-red-black-tree
-          version: "1.1"
+          version: "1.2"
