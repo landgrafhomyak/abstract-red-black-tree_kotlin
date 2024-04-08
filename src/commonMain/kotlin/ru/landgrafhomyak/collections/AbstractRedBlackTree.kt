@@ -21,8 +21,41 @@ abstract class AbstractRedBlackTree<NODE : Any> {
     protected abstract fun _setRightChild(node: NODE, child: NODE?)
     protected abstract fun _getColor(node: NODE): Color
     protected abstract fun _setColor(node: NODE, color: Color)
-
     protected open fun _checkSame(leftNode: NODE, rightNode: NODE?) = leftNode === rightNode
+
+    /**
+     * Called after rotating around [oldTop], so [newTop] is now parent of [oldTop].
+     */
+    protected open fun _rotateLeftPostUpdate(
+        oldTop: NODE,
+        newTop: NODE
+    ) {}
+
+    /**
+     * Called after rotating around [oldTop], so [newTop] is now parent of [oldTop].
+     */
+    protected open fun _rotateRightPostUpdate(
+        oldTop: NODE,
+        newTop: NODE
+    ) {}
+
+    /**
+     * Called to swap all inheritor's data related only to this tree except children, parent and color.
+     */
+    protected open fun _swapUserData(
+        node1: NODE,
+        node2: NODE
+    ) {}
+
+    /**
+     * Called just before removing [unlinkedNode] from the tree. Whole tree well-balanced except [unlinkedNode].
+     */
+    protected open fun _unlinkPreUpdate(
+        unlinkedNode: NODE,
+    ) {}
+
+
+
     enum class Color(@JvmField val asBoolean: Boolean) {
         RED(true), BLACK(false);
 
@@ -66,6 +99,8 @@ abstract class AbstractRedBlackTree<NODE : Any> {
         setTop(node)
         this._setLeftChild(node, top)
         this._setParent(top, node)
+
+        this._rotateLeftPostUpdate(top, node)
     }
 
     /*
@@ -104,6 +139,8 @@ abstract class AbstractRedBlackTree<NODE : Any> {
         setTop(node)
         this._setRightChild(node, top)
         this._setParent(top, node)
+
+        this._rotateRightPostUpdate(top, node)
     }
 
     /*
@@ -258,12 +295,6 @@ abstract class AbstractRedBlackTree<NODE : Any> {
         }
     }
 
-    private fun ___swapColors(nod1: NODE, node2: NODE) {
-        val color = this._getColor(nod1)
-        this._setColor(nod1, this._getColor(node2))
-        this._setColor(node2, color)
-    }
-
     @OptIn(ExperimentalContracts::class)
     private inline fun ___swapWithKeyNeighbour(
         node: NODE,
@@ -322,7 +353,12 @@ abstract class AbstractRedBlackTree<NODE : Any> {
                 setRightChild = setOppositeChild
             )
         }
-        this.___swapColors(node, repl)
+
+        val color = this._getColor(node)
+        this._setColor(node, this._getColor(repl))
+        this._setColor(repl, color)
+
+        this._swapUserData(node, repl)
     }
 
     private fun __swapWithPrevKey(
@@ -377,9 +413,11 @@ abstract class AbstractRedBlackTree<NODE : Any> {
 
                     if (this._getColor(node) != Color.RED)
                         this.__balanceAfterUnlinking(node, parent)
+                    this._unlinkPreUpdate(node)
                     this.__setChildSwitch(parent, node, null)
                     return
                 } else {
+                    this._unlinkPreUpdate(node)
                     this.__setChildSwitch(parent, node, nodeRightChild)
                     this._setParent(nodeRightChild, parent)
                     this._setColor(nodeRightChild, Color.BLACK)
@@ -387,6 +425,7 @@ abstract class AbstractRedBlackTree<NODE : Any> {
                 }
             } else {
                 if (nodeRightChild == null) {
+                    this._unlinkPreUpdate(node)
                     this.__setChildSwitch(parent, node, nodeLeftChild)
                     this._setParent(nodeLeftChild, parent)
                     this._setColor(nodeLeftChild, Color.BLACK)
@@ -399,11 +438,8 @@ abstract class AbstractRedBlackTree<NODE : Any> {
         }
     }
 
-    /**
-     * @param node expected to be [BLACK][AbstractRedBlackTree.Color.BLACK].
-     */
-    private fun __balanceAfterUnlinking(nodeForDeleting: NODE, parent: NODE) {
-        var node = nodeForDeleting
+    private fun __balanceAfterUnlinking(node: NODE, parent: NODE) {
+        @Suppress("NAME_SHADOWING") var node = node
         @Suppress("NAME_SHADOWING") var parent = parent
         var continueBalancing: Boolean
         do {
