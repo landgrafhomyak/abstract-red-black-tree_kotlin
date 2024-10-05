@@ -40,7 +40,8 @@ abstract class AbstractRedBlackTree<NODE : Any> {
     ) {}
 
     /**
-     * Called to swap all inheritor's data related only to this tree except children, parent and color.
+     * Called to swap all inheritor's data related ***only to this tree*** except children, parent and color.
+     * Values stored in those nodes don't need to be swapped.
      */
     protected open fun _swapUserData(
         node1: NODE,
@@ -61,6 +62,7 @@ abstract class AbstractRedBlackTree<NODE : Any> {
 
         companion object {
             @JvmStatic
+            @Suppress("RemoveRedundantQualifierName")
             fun fromBoolean(value: Boolean) = if (value) Color.RED else Color.BLACK
         }
     }

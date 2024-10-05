@@ -1,0 +1,3 @@
+[submodule "bin-tree-utilities"]
+	path = bin-tree-utilities
+	url = https://github.com/landgrafhomyak/binary-tree-utilities_kotlin

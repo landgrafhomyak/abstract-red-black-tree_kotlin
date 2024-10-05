@@ -1,5 +1,7 @@
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+
 plugins {
-    kotlin("multiplatform") version "1.9.0"
+    kotlin("multiplatform") version "2.0.20"
     `maven-publish`
 }
 
@@ -11,16 +13,26 @@ repositories {
     maven("https://maven.landgrafhomyak.ru/")
 }
 
-
+@OptIn(ExperimentalWasmDsl::class)
 kotlin {
+    jvmToolchain(8)
     jvm {
-        jvmToolchain(8)
     }
-    js {
+    js(IR) {
         browser()
         nodejs()
     }
+    wasmWasi {
+        nodejs()
+    }
+    wasmJs {
+        nodejs()
+        browser()
+        d8()
+    }
 
+    macosArm64()
+    macosX64()
     linuxArm64()
     linuxX64()
     mingwX64()
@@ -28,27 +40,22 @@ kotlin {
     androidNativeArm64()
     androidNativeX64()
     androidNativeX86()
-
-    macosArm64()
-    macosX64()
     iosArm64()
     iosSimulatorArm64()
     iosX64()
-    ios()
-    tvos()
-    watchos()
-
-//    wasm()
+    tvosX64()
+    tvosArm64()
+    tvosSimulatorArm64()
+    watchosX64()
+    watchosArm32()
+    watchosArm64()
+    watchosDeviceArm64()
+    watchosSimulatorArm64()
 
     sourceSets {
-        val commonMain by getting {
+        commonMain {
             dependencies {
                 implementation("ru.landgrafhomyak.collections:binary-tree-utilities:1.0")
-            }
-        }
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
             }
         }
     }
